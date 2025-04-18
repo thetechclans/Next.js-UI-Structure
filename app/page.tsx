@@ -1,10 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import { Button } from "@/components/ui-components/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui-components/card"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Form } from "@/components/ui-components/form"
-import { FormField } from "@/components/ui-components/form-field"
 import {
   Table,
   TableBody,
@@ -13,13 +12,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui-components/table"
+} from "@/components/ui/table"
 import { Search } from "@/components/ui-components/search"
 import { Pagination } from "@/components/ui-components/pagination"
 import { Notification } from "@/components/ui-components/notification"
 import { OtpInput } from "@/components/ui-components/otp-input"
 import { useLocale } from "@/components/locale/locale-provider"
 import { Users, HomeIcon, Settings } from "lucide-react"
+import { FormField } from "@/components/ui-components/form-field"
 
 export default function Home() {
   const { t, dir } = useLocale()
@@ -109,12 +109,12 @@ export default function Home() {
             <OtpInput
               value={otpValue}
               onChange={setOtpValue}
-              length={6}
-              error={otpValue.length > 0 && otpValue.length < 6 ? t("invalid_otp") : undefined}
+              length={4}
+              error={otpValue.length > 0 && otpValue.length < 4 ? t("invalid_otp") : undefined}
             />
           </CardContent>
           <CardFooter className="justify-end">
-            <Button disabled={otpValue.length !== 6}>{t("submit")}</Button>
+            <Button disabled={otpValue.length !== 4}>{t("submit")}</Button>
           </CardFooter>
         </Card>
       </section>

@@ -4,8 +4,8 @@ import type React from "react"
 
 import { forwardRef } from "react"
 import { cn } from "@/lib/utils"
-import { Button } from "./button"
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react"
+import { Button } from "../ui/button"
 
 export interface PaginationProps extends React.HTMLAttributes<HTMLDivElement> {
   currentPage: number

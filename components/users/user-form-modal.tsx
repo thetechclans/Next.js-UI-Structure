@@ -4,12 +4,12 @@ import type React from "react"
 
 import { useState } from "react"
 import { useLocale } from "@/components/locale/locale-provider"
-import { Button } from "@/components/ui-components/button"
-import { FormField } from "@/components/ui-components/form-field"
+import { Button } from "@/components/ui/button"
 import type { User, UserCreateRequest, UserUpdateRequest } from "@/models/user.model"
-import { UserService } from "@/services/user.service"
+import { userService } from "@/services/user.service"
 import { RoleMap } from "@/models/role.model"
 import { X } from "lucide-react"
+import { FormField } from "../ui-components/form-field"
 
 interface UserFormModalProps {
   user: User | null
@@ -84,11 +84,11 @@ export function UserFormModal({ user, onClose, onSubmit }: UserFormModalProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
+  
     if (!validateForm()) return
-
+  
     setIsSubmitting(true)
-
+  
     try {
       if (user) {
         // Update existing user
@@ -100,12 +100,13 @@ export function UserFormModal({ user, onClose, onSubmit }: UserFormModalProps) {
           rolecode: formData.rolecode,
           is_active: formData.is_active,
         }
-
+  
         if (formData.password) {
           updateData.password = formData.password
         }
-
-        await UserService.updateUser(updateData)
+  
+        const response = await userService.update(String(updateData.id), updateData) // cleaner: id split in userService
+        if (!response) throw new Error("Failed to update user.")
       } else {
         // Create new user
         const createData: UserCreateRequest = {
@@ -115,18 +116,21 @@ export function UserFormModal({ user, onClose, onSubmit }: UserFormModalProps) {
           usermobile: formData.usermobile,
           rolecode: formData.rolecode,
         }
-
-        await UserService.createUser(createData)
+  
+        const response = await userService.create(createData)
+        if (!response) throw new Error("Failed to create user.")
       }
-
+  
+      // Only call onSubmit(true) if everything succeeded
       onSubmit(true)
     } catch (error) {
       console.error("Error submitting user form:", error)
-      onSubmit(false)
+      onSubmit(false) // Or optionally just return and show toast, depending on your UX pattern
     } finally {
       setIsSubmitting(false)
     }
   }
+  
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">

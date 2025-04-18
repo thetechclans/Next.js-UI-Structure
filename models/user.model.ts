@@ -1,3 +1,11 @@
+export type UserQueryParams = {
+  limit: number
+  offset: number
+  search?: string
+  sortBy?: string
+  sortOrder?: 'asc' | 'desc'
+}
+
 export interface User {
   id: number
   email: string

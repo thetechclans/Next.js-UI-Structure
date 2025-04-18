@@ -1,7 +1,7 @@
 "use client"
 
 import { useLocale } from "@/components/locale/locale-provider"
-import { Button } from "@/components/ui-components/button"
+import { Button } from "@/components/ui/button"
 import { AlertTriangle } from "lucide-react"
 
 interface DeleteConfirmModalProps {

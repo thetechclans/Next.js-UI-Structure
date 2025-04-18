@@ -6,7 +6,7 @@ import { forwardRef } from "react"
 import { cn } from "@/lib/utils"
 import { Input, type InputProps } from "./input"
 import { X, SearchIcon } from "lucide-react"
-import { Button } from "./button"
+import { Button } from "../ui/button"
 
 export interface SearchProps extends Omit<InputProps, "onChange"> {
   onSearch?: (value: string) => void
