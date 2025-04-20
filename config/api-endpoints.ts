@@ -17,6 +17,7 @@ export const API_PATHS = {
   REFERENCE_DATA: "apiMemberStatus",
   USERS: "apiUserManagementEdit",
   ERROR_LOG: "ApiErrorLog",
+  DQMS: "apiDCMetaDataRepoFilters"
 }
 
 // Reference data endpoints
@@ -29,3 +30,6 @@ export const USER_ENDPOINTS = generateCrudEndpoints()
 export const ERROR_LOG_ENDPOINTS = {
   CREATE: "",
 }
+
+// DQMS endpoints
+export const DQMS_ENDPOINTS = generateCrudEndpoints()
