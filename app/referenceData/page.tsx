@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { MemberStatus } from "@/models/member-status.model";
 import { referenceService } from "@/services/reference.service";
+import { DQMSservice } from "@/services/dqms.service";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -19,9 +20,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { DQMSModel, DQMSQueryParams } from "@/models/dqms.model";
+import { UserQueryParams } from "@/models/user.model";
 
 export default function MemberStatusPage() {
   const [statuses, setStatuses] = useState<MemberStatus[]>([]);
+  const [dqms, setDqms] = useState<DQMSModel[]>();
   const [loading, setLoading] = useState(false);
   const [editStatus, setEditStatus] = useState<MemberStatus | null>(null);
   const [form, setForm] = useState({
@@ -42,7 +46,29 @@ export default function MemberStatusPage() {
     }
   };
 
+
+  const fetchDqmsData = async () => {
+    setLoading(true);
+    try {
+
+    const params: DQMSQueryParams = {
+      masterparentcode: 85566,
+      objecttypecode: 2,
+      iskeytag: false,
+      objectname: "DQMS",
+      page: 1,
+    }
+
+      const { results } = await DQMSservice.getAll(params)
+      console.log("DQMS Data:", results)
+      setDqms(results[0].results);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
+    fetchDqmsData();
     fetchData();
   }, []);
 
