@@ -16,6 +16,7 @@ const generateCrudEndpoints = () => ({
 export const API_PATHS = {
   REFERENCE_DATA: "apiMemberStatus",
   USERS: "apiUserManagementEdit",
+  ERROR_LOG: "ApiErrorLog",
 }
 
 // Reference data endpoints
@@ -23,3 +24,8 @@ export const REFERENCE_ENDPOINTS = generateCrudEndpoints()
 
 // User endpoints
 export const USER_ENDPOINTS = generateCrudEndpoints()
+
+// Error log endpoints
+export const ERROR_LOG_ENDPOINTS = {
+  CREATE: "",
+}

@@ -43,6 +43,11 @@ class ApiService extends BaseApiService {
     // else assume it's already paginated
     return data as PaginatedResponse<T>
   }
+
+  async getAll<T>(endpoint: string): Promise<T | null> {
+    const response = await this.get<T>(endpoint)
+    return response.success ? response.data || null : null
+  }
   
 
   async getById<T>(endpoint: string, id: string): Promise<T | null> {

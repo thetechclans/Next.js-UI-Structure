@@ -15,6 +15,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="flex flex-col min-h-screen">
+        {/* ✅ GA Script */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX`}
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XXXXXXXXXX');
+          `}
+        </Script>
+        
         <LocaleProvider>
           <SidebarLayout>
             <Navbar />
@@ -28,3 +42,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 
 import './globals.css'
+import Script from "next/script"
