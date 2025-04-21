@@ -6,7 +6,7 @@ import { useState } from "react"
 import { useLocale } from "@/components/locale/locale-provider"
 import { Button } from "@/components/ui/button"
 import type { User, UserCreateRequest, UserUpdateRequest } from "@/models/user.model"
-import { userService } from "@/services/user.service"
+
 import { RoleMap } from "@/models/role.model"
 import { X } from "lucide-react"
 import { FormField } from "../ui-components/form-field"
@@ -105,8 +105,8 @@ export function UserFormModal({ user, onClose, onSubmit }: UserFormModalProps) {
           updateData.password = formData.password
         }
   
-        const response = await userService.update(String(updateData.id), updateData) // cleaner: id split in userService
-        if (!response) throw new Error("Failed to update user.")
+        // const response = await userService.update(String(updateData.id), updateData) // cleaner: id split in userService
+        // if (!response) throw new Error("Failed to update user.")
       } else {
         // Create new user
         const createData: UserCreateRequest = {
@@ -117,8 +117,8 @@ export function UserFormModal({ user, onClose, onSubmit }: UserFormModalProps) {
           rolecode: formData.rolecode,
         }
   
-        const response = await userService.create(createData)
-        if (!response) throw new Error("Failed to create user.")
+        // const response = await userService.create(createData)
+        // if (!response) throw new Error("Failed to create user.")
       }
   
       // Only call onSubmit(true) if everything succeeded

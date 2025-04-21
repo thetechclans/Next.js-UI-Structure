@@ -1,35 +1,98 @@
-import { BaseApiService } from "./base-api.service"
+import { BaseApiService } from "./base-api.service";
+import { ApiResponse } from "./base-api.service";
+import { toast } from "@/hooks/use-toast";
 
-interface PaginationParams {
-  page?: number
-  page_size?: number
-  search?: string
-  ordering?: string
-  [key: string]: any
+interface ApiRequestParams {
+  endpoint: string;
+  queryParams?: Record<string, any>;
+  body?: any;
+  page?: number;
+  limit?: number;
 }
 
 interface PaginatedResponse<T> {
-  results: T[]
-  count: number
-  next: string | null
-  previous: string | null
+  results: T[];
+  count: number;
+  next: string | null;
+  previous: string | null;
 }
 
-class ApiService extends BaseApiService {
+export class APIService extends BaseApiService {
   constructor() {
-    const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || ""
-    super(apiBaseUrl)
+    super(process.env.NEXT_PUBLIC_API_BASE_URL || "");
   }
 
-  async getAllPaginated<T>(endpoint: string, params?: PaginationParams): Promise<PaginatedResponse<T>> {
-    const response = await this.fetchApi<T[] | PaginatedResponse<T>>(endpoint, { method: "GET" }, params)
-  
+  async create<T>(params: ApiRequestParams): Promise<ApiResponse<T>> {
+    const response = await this.fetchApi<T>(params.endpoint, {
+      method: "POST",
+      body: JSON.stringify(params.body),
+    });
+
+    return response;
+  }
+
+  async getAll<T>(params: ApiRequestParams): Promise<ApiResponse<T[]>> {
+    const response = await this.fetchApi<T[]>(
+      params.endpoint,
+      { method: "GET" },
+      params.queryParams
+    );
+
+    return response;
+  }
+
+  async getById<T>(params: ApiRequestParams): Promise<ApiResponse<T>> {
+    const response = await this.fetchApi<T>(
+      `${params.endpoint}/${params.queryParams?.id}`,
+      { method: "GET" }
+    );
+
+    return response;
+  }
+
+  async update<T>(params: ApiRequestParams): Promise<ApiResponse<T>> {
+    const response = await this.fetchApi<T>(
+      `${params.endpoint}/${params.queryParams?.id}`,
+      {
+        method: "PUT",
+        body: JSON.stringify(params.body),
+      }
+    );
+
+    return response;
+  }
+
+
+  async delete<T>(endpoint: string): Promise<ApiResponse<T>> {
+    // Implement using base class method
+    return super.delete<T>(endpoint);
+  }
+
+  // New unified delete method with params
+  async deleteItem<T>(params: ApiRequestParams): Promise<boolean> {
+    const response = await this.fetchApi<T>(
+      `${params.endpoint}/${params.queryParams?.id}`,
+      { method: "DELETE" }
+    );
+    return response.success;
+  }
+
+
+  async getAllPaginated<T>(
+    params: ApiRequestParams
+  ): Promise<PaginatedResponse<T>> {
+    const response = await this.fetchApi<PaginatedResponse<T>>(
+      params.endpoint,
+      { method: "GET" },
+      params.queryParams
+    );
+
     if (!response.success) {
-      return { results: [], count: 0, next: null, previous: null }
+      return { results: [], count: 0, next: null, previous: null };
     }
-  
-    const data = response.data
-  
+
+    const data = response.data;
+
     // 👉 if data is an array, wrap it
     if (Array.isArray(data)) {
       return {
@@ -37,40 +100,12 @@ class ApiService extends BaseApiService {
         count: data.length,
         next: null,
         previous: null,
-      }
+      };
     }
-  
+
     // else assume it's already paginated
-    return data as PaginatedResponse<T>
+    return data as PaginatedResponse<T>;
   }
-
-  async getAll<T>(endpoint: string): Promise<T | null> {
-    const response = await this.get<T>(endpoint)
-    return response.success ? response.data || null : null
-  }
-  
-
-  async getById<T>(endpoint: string, id: string): Promise<T | null> {
-    const response = await this.get<T>(`${endpoint}/${id}`)
-    return response.success ? response.data || null : null
-  }
-
-  async create<T>(endpoint: string, data: any): Promise<T | null> {
-    const response = await this.post<T>(endpoint, data)
-    return response.success ? response.data || null : null
-  }
-
-  async update<T>(endpoint: string, data: any): Promise<T | null> {
-    const response = await this.put<T>(endpoint, data)
-    return response.success ? response.data || null : null
-  }
-
-
-  async deleteItem(endpoint: string): Promise<boolean> {
-    const response = await this.delete(`${endpoint}/`)
-    return response.success
-  }
-  
 }
 
-export const apiService = new ApiService()
+export const apiService = new APIService();

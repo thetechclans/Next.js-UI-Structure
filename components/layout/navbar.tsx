@@ -1,16 +1,16 @@
-"use client"
+"use client";
 
-import { useLocale } from "@/components/locale/locale-provider"
-import { Button } from "@/components/ui/button"
-import { Globe, User } from "lucide-react"
-import Link from "next/link"
+import { useLocale } from "@/components/locale/locale-provider";
+import { Button } from "@/components/ui/button";
+import { Globe, User } from "lucide-react";
+import Link from "next/link";
 
 export function Navbar() {
-  const { t, locale, setLocale } = useLocale()
+  const { t, locale, setLocale } = useLocale();
 
   const toggleLocale = () => {
-    setLocale(locale === "en" ? "ar" : "en")
-  }
+    setLocale(locale === "en" ? "ar" : "en");
+  };
 
   return (
     <header className="sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b bg-background px-4 shadow-sm">
@@ -20,7 +20,12 @@ export function Navbar() {
         </Link>
       </div>
       <div className="flex items-center gap-4">
-        <Button variant="outline" size="sm" onClick={toggleLocale} className="flex items-center gap-2">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={toggleLocale}
+          className="flex items-center gap-2"
+        >
           <Globe className="h-4 w-4" />
           {locale === "en" ? t("arabic") : t("english")}
         </Button>
@@ -30,5 +35,5 @@ export function Navbar() {
         </Button>
       </div>
     </header>
-  )
+  );
 }

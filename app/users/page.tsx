@@ -14,7 +14,7 @@ import type { UserQueryParams } from "@/models/user.model"
 import { Edit, Plus, Trash2, ArrowUpDown, AlertTriangle, RefreshCw } from "lucide-react"
 import { UserFormModal } from "@/components/users/user-form-modal"
 import { DeleteConfirmModal } from "@/components/users/delete-confirm-modal"
-import { userService } from "@/services/user.service"
+// import { userService } from "@/services/user.service"
 
 export default function UsersPage() {
   const { t } = useLocale()
@@ -49,8 +49,8 @@ export default function UsersPage() {
         sortOrder,
       }
 
-      const { results } = await userService.getAll(params)
-      setUsers(results)
+      // const { results } = await userService.getAll(params)
+      // setUsers(results)
       // setTotalUsers(total)
     } catch (err) {
       console.error('Error fetching users:', err)
@@ -121,8 +121,8 @@ export default function UsersPage() {
     setIsDeleteModalOpen(false)
     if (confirmed && selectedUser) {
       try {
-        const success = await userService.delete(selectedUser.id.toString())
-        if (!success) throw new Error("Delete failed")
+        // const success = await userService.delete(selectedUser.id.toString())
+        // if (!success) throw new Error("Delete failed")
 
         showNotificationMessage('success', t('user_deleted'))
         fetchUsers()

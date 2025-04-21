@@ -33,6 +33,7 @@ export type TranslationKey =
   | "otp_component"
   | "registration_form"
   | "enter_details"
+  | "login_to_continue"
   | "full_name"
   | "email"
   | "password"
@@ -69,6 +70,7 @@ export type TranslationKey =
   | "mobile"
   | "role"
   | "last_login"
+  | "login"
   | "actions"
   | "active"
   | "inactive"
@@ -105,6 +107,7 @@ export type TranslationKey =
 
 export const translations: Record<Locale, Record<TranslationKey, string>> = {
   en: {
+    login_to_continue: "Login to continue",
     search: "Search",
     search_placeholder: "Search...",
     clear: "Clear",
@@ -173,6 +176,7 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     mobile: "Mobile",
     role: "Role",
     last_login: "Last Login",
+    login: "Login",
     actions: "Actions",
     active: "Active",
     inactive: "Inactive",
@@ -208,6 +212,7 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     check_network_connection: "Check your network connection",
   },
   ar: {
+    login_to_continue: "تسجيل الدخول للمتابعة",
     search: "بحث",
     search_placeholder: "ابحث هنا...",
     clear: "مسح",
@@ -276,6 +281,7 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     mobile: "الجوال",
     role: "الدور",
     last_login: "آخر تسجيل دخول",
+    login: "تسجيل الدخول",
     actions: "الإجراءات",
     active: "نشط",
     inactive: "غير نشط",

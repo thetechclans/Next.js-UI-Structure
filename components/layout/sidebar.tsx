@@ -1,8 +1,7 @@
-"use client"
+"use client";
 
-import type React from "react"
-
-import { useLocale } from "@/components/locale/locale-provider"
+import type React from "react";
+import { useLocale } from "@/components/locale/locale-provider";
 import {
   Sidebar,
   SidebarContent,
@@ -15,18 +14,18 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarRail,
-} from "@/components/ui/sidebar"
-import { Home, Users, Book } from "lucide-react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+} from "@/components/ui/sidebar";
+import { Home, Users, Book } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface SidebarProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 export function SidebarLayout({ children }: SidebarProps) {
-  const { t, dir } = useLocale()
-  const pathname = usePathname()
+  const { t, dir } = useLocale();
+  const pathname = usePathname();
 
   const menuItems = [
     {
@@ -44,11 +43,11 @@ export function SidebarLayout({ children }: SidebarProps) {
       icon: Book,
       path: "/referenceData",
     },
-  ]
+  ];
 
   return (
     <SidebarProvider>
-      <div className="flex min-h-screen" dir={dir}>
+      <div className="flex min-h-screen w-full" dir={dir}>
         <Sidebar side={dir === "rtl" ? "right" : "left"}>
           <SidebarHeader className="flex h-16 items-center border-b px-6">
             <h1 className="text-xl font-bold">Admin Panel</h1>
@@ -60,7 +59,11 @@ export function SidebarLayout({ children }: SidebarProps) {
                 <SidebarMenu>
                   {menuItems.map((item) => (
                     <SidebarMenuItem key={item.path}>
-                      <SidebarMenuButton asChild isActive={pathname === item.path} tooltip={item.title}>
+                      <SidebarMenuButton
+                        asChild
+                        isActive={pathname === item.path}
+                        tooltip={item.title}
+                      >
                         <Link href={item.path}>
                           <item.icon className="h-5 w-5" />
                           <span>{item.title}</span>
@@ -74,8 +77,8 @@ export function SidebarLayout({ children }: SidebarProps) {
           </SidebarContent>
           <SidebarRail />
         </Sidebar>
-        <div className="flex flex-1 flex-col">{children}</div>
+        <div className="flex-1 w-full">{children}</div>
       </div>
     </SidebarProvider>
-  )
+  );
 }

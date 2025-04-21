@@ -1,198 +1,171 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { MemberStatus } from "@/models/member-status.model";
-import { referenceService } from "@/services/reference.service";
-import { DQMSservice } from "@/services/dqms.service";
+import { ColumnDef, DataTable } from "@/components/ui/data-table";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { DQMSModel, DQMSQueryParams } from "@/models/dqms.model";
-import { UserQueryParams } from "@/models/user.model";
+import { apiService } from "@/services/api.service";
+import { API_PATHS } from "@/services/api-endpoints";
+import { DQMSQueryParams, DQMSPayload, DQMSModel } from "@/models/dqms.model";
+import { Loader2 } from "lucide-react"; // Import the circular loader icon
+
+function createColumn<T>(
+  header: string,
+  accessor: keyof T | ((item: T) => React.ReactNode)
+): ColumnDef<T> {
+  return { header, accessor };
+}
 
 export default function MemberStatusPage() {
-  const [statuses, setStatuses] = useState<MemberStatus[]>([]);
-  const [dqms, setDqms] = useState<DQMSModel[]>();
+  const [data, setData] = useState<DQMSModel[]>([]);
   const [loading, setLoading] = useState(false);
-  const [editStatus, setEditStatus] = useState<MemberStatus | null>(null);
   const [form, setForm] = useState({
-    memberstatusdescen: "",
-    memberstatusdescar: "",
+    instancename: "",
+    parentname: "",
   });
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [dialogOpen1, setDialogOpen1] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [currentItem, setCurrentItem] = useState<DQMSModel | null>(null);
 
+  // Pagination state
+  const [pagination, setPagination] = useState({
+    currentPage: 1,
+    pageCount: 1,
+    hasNext: false,
+    hasPrevious: false,
+    showPagination: false, // Add this flag to control pagination visibility
+  });
 
-  const fetchData = async () => {
+  const fetchData = async (page: number = 1) => {
     setLoading(true);
     try {
-      const data = await referenceService.getAll();
-      setStatuses(data || []);
-    } finally {
-      setLoading(false);
-    }
-  };
+      const params: DQMSQueryParams = {
+        page,
+        // masterparentcode: 85566,
+        // objecttypecode: 2,
+        // iskeytag: false,
+        // objectname: "DQMS",
+      };
 
+      const { results, count, next, previous } =
+        await apiService.getAllPaginated<DQMSModel>({
+          endpoint: API_PATHS.DQMS,
+          queryParams: params,
+        });
 
-  const fetchDqmsData = async () => {
-    setLoading(true);
-    try {
+      setData(results || []);
 
-    const params: DQMSQueryParams = {
-      masterparentcode: 85566,
-      objecttypecode: 2,
-      iskeytag: false,
-      objectname: "DQMS",
-      page: 1,
-    }
-
-      const { results } = await DQMSservice.getAll(params)
-      console.log("DQMS Data:", results)
-      setDqms(results[0].results);
+      // Update pagination state and show pagination
+      setPagination({
+        currentPage: page,
+        pageCount: Math.ceil(count / 10),
+        hasNext: !!next,
+        hasPrevious: !!previous,
+        showPagination: true, // Set to true after successful API call
+      });
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchDqmsData();
     fetchData();
   }, []);
 
+  const handlePageChange = (page: number) => {
+    setPagination(prev => ({...prev, showPagination: false})); // Hide pagination during loading
+    fetchData(page);
+  };
+
   const handleSave = async () => {
-    if (editStatus) {
-      await referenceService.update(editStatus.memberstatusid.toString(), { ...editStatus, ...form });
-    } else {
-      await referenceService.create(form as MemberStatus);
-    }
-    setForm({ memberstatusdescen: "", memberstatusdescar: "" });
-    setEditStatus(null);
-    setDialogOpen(false);
-    setDialogOpen1(false);
+    // Implement your save logic here
+    setIsDialogOpen(false);
     fetchData();
   };
 
   const handleDelete = async (id: number) => {
-    await referenceService.delete(id.toString());
+    // Implement your delete logic here
     fetchData();
   };
 
+  // Then use it like this:
+  const columns = [
+    createColumn<DQMSModel>("Code", "code"),
+    createColumn<DQMSModel>("Instancename", "instancename"),
+    createColumn<DQMSModel>("Object Name", "objectname"),
+    createColumn<DQMSModel>("Parent Name", (item) => item.parentname || "N/A"),
+  ];
+
+  
   return (
     <div className="p-6 space-y-4">
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-bold">Member Status Reference</h2>
-        <Dialog open={dialogOpen1} onOpenChange={setDialogOpen1}>
-          <DialogTrigger asChild>
-            <Button
-              onClick={() => {
-                setEditStatus(null);
-                setForm({ memberstatusdescen: "", memberstatusdescar: "" });
-                setDialogOpen1(true);
-              }}
-            >
-              + Add Status
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="space-y-4">
-            <DialogTitle className="font-semibold text-lg">
-              {editStatus ? "Edit" : "Create"} Member Status
-            </DialogTitle>
-            <Input
-              placeholder="English Description"
-              value={form.memberstatusdescen}
-              onChange={(e) =>
-                setForm({ ...form, memberstatusdescen: e.target.value })
-              }
-            />
-            <Input
-              placeholder="Arabic Description"
-              value={form.memberstatusdescar}
-              onChange={(e) =>
-                setForm({ ...form, memberstatusdescar: e.target.value })
-              }
-            />
-            <Button onClick={handleSave}>Save</Button>
-          </DialogContent>
-        </Dialog>
+        <Button
+          onClick={() => {
+            setCurrentItem(null);
+            setIsDialogOpen(true);
+          }}
+          disabled={loading} // Disable button during loading
+        >
+          + Add Status
+        </Button>
       </div>
 
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>ID</TableHead>
-            <TableHead>English</TableHead>
-            <TableHead>Arabic</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {statuses.map((status) => (
-            <TableRow key={status.memberstatusid}>
-              <TableCell>{status.memberstatusid}</TableCell>
-              <TableCell>{status.memberstatusdescen}</TableCell>
-              <TableCell>{status.memberstatusdescar}</TableCell>
-              <TableCell className="text-right space-x-2">
-              <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-                  <DialogTrigger asChild>
-                    <Button
-                      variant="outline"
-                      onClick={() => {
-                        setEditStatus(status);
-                        setForm({
-                          memberstatusdescen: status.memberstatusdescen,
-                          memberstatusdescar: status.memberstatusdescar,
-                        });
-                        setDialogOpen(true);
-                      }}
-                    >
-                      Edit
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="space-y-4">
-                    <DialogTitle className="font-semibold text-lg">
-                      Edit Member Status
-                    </DialogTitle>
-                    <Input
-                      placeholder="English Description"
-                      value={form.memberstatusdescen}
-                      onChange={(e) =>
-                        setForm({ ...form, memberstatusdescen: e.target.value })
-                      }
-                    />
-                    <Input
-                      placeholder="Arabic Description"
-                      value={form.memberstatusdescar}
-                      onChange={(e) =>
-                        setForm({ ...form, memberstatusdescar: e.target.value })
-                      }
-                    />
-                    <Button onClick={handleSave}>Update</Button>
-                  </DialogContent>
-                </Dialog>
-                <Button
-                  variant="destructive"
-                  onClick={() => handleDelete(status.memberstatusid)}
-                >
-                  Delete
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      {/* Loading spinner */}
+      {loading && (
+        <div className="flex justify-center items-center h-64">
+          <Loader2 className="h-12 w-12 animate-spin text-primary" />
+        </div>
+      )}
+
+      {/* Show table only when not loading */}
+      {!loading && (
+        <>
+          <DataTable
+            data={data}
+            columns={columns}
+            keyField="code"
+            onEdit={(item) => {
+              setCurrentItem(item);
+              setForm({
+                instancename: item.instancename,
+                parentname: item.parentname,
+              });
+              setIsDialogOpen(true);
+            }}
+            onDelete={handleDelete}
+            pagination={
+              pagination.showPagination ? {
+                currentPage: pagination.currentPage,
+                pageCount: pagination.pageCount,
+                hasNext: pagination.hasNext,
+                hasPrevious: pagination.hasPrevious,
+                onPageChange: handlePageChange,
+              } : undefined
+            }
+          />
+        </>
+      )}
+
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="space-y-4">
+          <DialogTitle className="font-semibold text-lg">
+            {currentItem ? "Edit" : "Create"} Technical Contact
+          </DialogTitle>
+          <Input
+            placeholder="Technical Contact Email"
+            value={form.instancename}
+            onChange={(e) => setForm({ ...form, instancename: e.target.value })}
+          />
+          <Input
+            placeholder="Technical Contact Name"
+            value={form.parentname}
+            onChange={(e) => setForm({ ...form, parentname: e.target.value })}
+          />
+          <Button onClick={handleSave}>Save</Button>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

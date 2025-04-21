@@ -1,17 +1,22 @@
-import type React from "react"
-import type { Metadata } from "next"
-import "./globals.css"
-import { LocaleProvider } from "@/components/locale/locale-provider"
-import { Navbar } from "@/components/layout/navbar"
-import { SidebarLayout } from "@/components/layout/sidebar"
+"use client";
 
-export const metadata: Metadata = {
-  title: "Admin Dashboard",
-  description: "Admin Dashboard with User Management",
-    generator: 'v0.dev'
-}
+import type React from "react";
+import "./globals.css";
+import { LocaleProvider } from "@/components/locale/locale-provider";
+import { Layout } from "@/components/layout/layout";
+import { usePathname } from "next/navigation";
+import Script from "next/script";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const pathname = usePathname();
+
+  // Check if the current route is the login page
+  const isLoginPage = pathname === "/login";
+
   return (
     <html lang="en">
       <body className="flex flex-col min-h-screen">
@@ -28,18 +33,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             gtag('config', 'G-XXXXXXXXXX');
           `}
         </Script>
-        
         <LocaleProvider>
-          <SidebarLayout>
-            <Navbar />
-            <main className="flex-1 p-6 w-full">{children}</main>
-          </SidebarLayout>
+          {/* Render Layout only if not on the login page */}
+          {isLoginPage ? (
+            <main className="flex-1 w-full">{children}</main>
+          ) : (
+            <Layout>{children}</Layout>
+          )}
         </LocaleProvider>
       </body>
     </html>
-  )
+  );
 }
 
-
-import './globals.css'
-import Script from "next/script"
