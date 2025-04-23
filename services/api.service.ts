@@ -22,6 +22,32 @@ export class APIService extends BaseApiService {
     super(process.env.NEXT_PUBLIC_API_BASE_URL || "");
   }
 
+
+  async AuthLogin<T>(params: ApiRequestParams): Promise<ApiResponse<T>> {
+    const response = await this.fetchApi<T>(params.endpoint, {
+      method: "POST",
+      body: JSON.stringify(params.body),
+    });
+
+    if (response.success) {
+      // Assuming the token is part of the response data
+      const token = (response.data as any)?.token;
+      console.log("AuthLogin token:", token);
+      if (token) {
+        localStorage.setItem("authToken", token);
+      }
+    } else {
+      toast({
+        title: "Login failed",
+        description: response.error || "Invalid credentials",
+        variant: "destructive",
+      });
+    }
+
+    return response;
+}
+  
+
   async create<T>(params: ApiRequestParams): Promise<ApiResponse<T>> {
     const response = await this.fetchApi<T>(params.endpoint, {
       method: "POST",

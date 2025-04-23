@@ -67,13 +67,13 @@ export default function Login2Template() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="username">UserName</Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
                   <Input
-                    id="email"
-                    placeholder="name@example.com"
-                    type="email"
+                    id="username"
+                    placeholder="name"
+                    type="text"
                     autoCapitalize="none"
                     autoComplete="email"
                     autoCorrect="off"

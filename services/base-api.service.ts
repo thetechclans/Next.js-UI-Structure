@@ -70,7 +70,7 @@ export class BaseApiService {
   
     // console.log("🔄 Fetching API:", endpoint)
 
-    try {
+    // try {
       const response = await fetch(url, {
         ...options,
         headers: {
@@ -115,25 +115,25 @@ export class BaseApiService {
         data: data as T,
         message: data.msg ?? getHttpStatusMessage(statusCode),
       };
-    } catch (err: any) {
-      const errorPayload = {
-        path: url,
-        method,
-        statusCode: 0,
-        message: err.message || "Network error",
-      };
+    // } catch (err: any) {
+    //   const errorPayload = {
+    //     path: url,
+    //     method,
+    //     statusCode: 0,
+    //     message: err.message || "Network error",
+    //   };
   
-      // Log the network error, except when it's the error logging endpoint itself
-      await this.logError(errorPayload, endpoint);
+    //   // Log the network error, except when it's the error logging endpoint itself
+    //   await this.logError(errorPayload, endpoint);
   
-      toast({
-        title: "Network Error",
-        description: errorPayload.message,
-        variant: "destructive",
-      });
+    //   toast({
+    //     title: "Network Error",
+    //     description: errorPayload.message,
+    //     variant: "destructive",
+    //   });
   
-      throw new Error(errorPayload.message);
-    }
+    //   throw new Error(errorPayload.message);
+    // }
   }
   
   // protected async get<T>(endpoint: string): Promise<ApiResponse<T>> {

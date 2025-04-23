@@ -7,9 +7,9 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { apiService } from "@/services/api.service";
 import { API_PATHS } from "@/services/api-endpoints";
-import { DQMSQueryParams, DQMSPayload, DQMSModel } from "@/models/dqms.model";
 import { Loader2 } from "lucide-react"; // Import the circular loader icon
 import { ApiErrorLog, PaginatedApiErrorLogs } from "@/models/error-log.model";
+import { DCMdl } from "@/models/dqms.model";
 
 function createColumn<T>(
   header: string,

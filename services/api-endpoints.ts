@@ -4,5 +4,6 @@ export const API_PATHS = {
   ERROR_LOG: "error-logs/",
   DQMS: "apiDCMetaDataRepoFilters",
   LOGIN: "login/",
-  DataSourceDetails: "pgDataSourceDetails"
+  DataSourceDetails: "pgDataSourceDetails",
+  DC: "apiDCCategoryDetails",
 }
