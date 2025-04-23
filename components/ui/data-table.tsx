@@ -54,7 +54,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
         <Table>
           {/* Table content remains the same */}
           <TableHeader>
-            <TableRow>
+            <TableRow >
               {columns.map((column) => (
                 <TableHead key={column.header.toString()}>
                   {column.header}
@@ -64,8 +64,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.map((item) => (
-              <TableRow key={String(item[keyField])}>
+            {data.map((item, index) => (
+              <TableRow key={index}>
                 {columns.map((column) => (
                   <TableCell key={column.header.toString()} className={column.className}>
                     {typeof column.accessor === "function"

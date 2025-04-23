@@ -14,6 +14,8 @@ import type { UserQueryParams } from "@/models/user.model"
 import { Edit, Plus, Trash2, ArrowUpDown, AlertTriangle, RefreshCw } from "lucide-react"
 import { UserFormModal } from "@/components/users/user-form-modal"
 import { DeleteConfirmModal } from "@/components/users/delete-confirm-modal"
+import { apiService } from "@/services/api.service"
+import { API_PATHS } from "@/services/api-endpoints"
 // import { userService } from "@/services/user.service"
 
 export default function UsersPage() {
@@ -48,15 +50,17 @@ export default function UsersPage() {
         sortBy,
         sortOrder,
       }
+console.log("🚀 ~ file: page.tsx:50 ~ fetchUsers")
+      const results = await apiService.getAll<User>({
+        endpoint: API_PATHS.USERS,
+        queryParams: params,
+      });
+      console.log("🚀 ~ file: page.tsx:50 ~ fetchUsers ~ results:", results)
 
-      // const { results } = await userService.getAll(params)
-      // setUsers(results)
+      setUsers(results.data || []); // Assuming 'data' contains the array of users
       // setTotalUsers(total)
     } catch (err) {
       console.error('Error fetching users:', err)
-      setError(t('error_fetching_users'))
-      setUsers([])
-      setTotalUsers(0)
     } finally {
       setLoading(false)
     }
@@ -64,11 +68,12 @@ export default function UsersPage() {
 
   useEffect(() => {
     fetchUsers()
-  }, [currentPage, searchValue, sortBy, sortOrder])
+    console.log("Repeating")
+  }, [])
 
   const handleSearch = () => {
     setCurrentPage(1)
-    fetchUsers()
+    // fetchUsers()
   }
 
   const handleSort = (column: string) => {
@@ -95,8 +100,9 @@ export default function UsersPage() {
   }
 
   const handleAddUser = () => {
-    setSelectedUser(null)
-    setIsUserFormOpen(true)
+    // setSelectedUser(null)
+    // setIsUserFormOpen(true)
+    fetchUsers()
   }
 
   const handleEditUser = (user: User) => {
@@ -113,7 +119,7 @@ export default function UsersPage() {
     setIsUserFormOpen(false)
     if (success) {
       showNotificationMessage('success', selectedUser ? t('user_updated') : t('user_created'))
-      fetchUsers()
+      // fetchUsers()
     }
   }
 
@@ -125,7 +131,7 @@ export default function UsersPage() {
         // if (!success) throw new Error("Delete failed")
 
         showNotificationMessage('success', t('user_deleted'))
-        fetchUsers()
+        // fetchUsers()
       } catch (error) {
         showNotificationMessage('error', t('error_deleting_user'))
         console.error("Error deleting user:", error)

@@ -27,7 +27,6 @@ import { OtpInput } from "@/components/ui-components/otp-input";
 import { useLocale } from "@/components/locale/locale-provider";
 import { Users, HomeIcon, Settings } from "lucide-react";
 import { FormField } from "@/components/ui-components/form-field";
-import { SidebarLayout } from "@/components/layout/sidebar";
 import { Navbar } from "@/components/layout/navbar";
 
 export default function Home() {
@@ -145,7 +144,7 @@ export default function Home() {
               <OtpInput
                 value={otpValue}
                 onChange={setOtpValue}
-                length={4}
+                length={6}
                 error={
                   otpValue.length > 0 && otpValue.length < 4
                     ? t("invalid_otp")
@@ -162,7 +161,7 @@ export default function Home() {
         <section className="space-y-4">
           <h2 className="text-2xl font-semibold">{t("cards")}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Card>
+            <Card   >
               <CardHeader>
                 <CardTitle>{t("notification_title")}</CardTitle>
                 <CardDescription>{t("notification_message")}</CardDescription>

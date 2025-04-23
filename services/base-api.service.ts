@@ -1,9 +1,8 @@
 import { toast } from "@/hooks/use-toast";
-import { trackApiErrorToGA } from "@/lib/track-error";
 import { apiService } from "./api.service";
 import { API_PATHS } from "./api-endpoints";
 import { getHttpStatusMessage } from "./http-status-codes";
-
+import { logErrorToFirebase } from "./log-error-to-firebase";
 
 export interface ApiResponse<T = any> {
   success: boolean;
@@ -14,6 +13,7 @@ export interface ApiResponse<T = any> {
 
 export class BaseApiService {
   protected baseUrl: string;
+  isLoggingError: any;
 
   constructor(baseUrl: string) {
     this.baseUrl = baseUrl;
@@ -31,13 +31,46 @@ export class BaseApiService {
     return url.toString();
   }
 
+  private async logError(errorPayload: any, endpoint: string) {
+    if (endpoint === API_PATHS.ERROR_LOG) return;
+
+    console.log("🔥 Logging error to API");
+  
+    try {
+      // Primary logging attempt to the Django API
+      const res = await fetch(`${this.baseUrl}${API_PATHS.ERROR_LOG}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(errorPayload),
+      });
+  
+      if (!res.ok) {
+        throw new Error("Failed to log error to API");
+      }
+
+    } catch (apiError) {
+      try {
+        // Fallback to Firebase logging
+        await logErrorToFirebase(errorPayload);
+      } catch (firebaseError) {
+        console.error("🔥 Failed to log error to Firebase as fallback", firebaseError);
+      }
+    }
+  }
+  
   protected async fetchApi<T>(
     endpoint: string,
     options: RequestInit = {},
     params?: Record<string, any>
   ): Promise<ApiResponse<T>> {
+    const url = this.buildUrl(endpoint, params);
+    const method = options.method || "GET";
+  
+    // console.log("🔄 Fetching API:", endpoint)
+
     try {
-      const url = this.buildUrl(endpoint, params);
       const response = await fetch(url, {
         ...options,
         headers: {
@@ -46,88 +79,85 @@ export class BaseApiService {
         },
       });
   
-      const method = options.method || "GET";
-      const statusCode = response.status;
-  
-      // Handle No Content (204) response
-      if (statusCode === 204) {
-        return { success: true, data: null, message: getHttpStatusMessage(statusCode) };
-      }
-  
-      const data = await response.json();
-  
-      // Handle non-OK responses
       if (!response.ok) {
         const errorPayload = {
           path: url,
           method,
-          statusCode,
-          message: getHttpStatusMessage(statusCode),
+          statusCode: response.status,
+          message: response.statusText || getHttpStatusMessage(response.status),
         };
   
-        // Log the error to the database or fallback to tracking
-        try {
-          await apiService.create({
-            endpoint: API_PATHS.ERROR_LOG,
-            body: { ...errorPayload, response: data },
-          });
-        } catch {
-          trackApiErrorToGA(errorPayload);
-        }
+        // Log the error, except when it's the error logging endpoint itself
+        // await this.logError(errorPayload, endpoint);
   
-        // Throw an error with the HTTP status message
+        toast({
+          title: "API Error",
+          description: errorPayload.message,
+          variant: "destructive",
+        });
+  
         throw new Error(errorPayload.message);
       }
+  
+      const statusCode = response.status;
+      if (statusCode === 204) {
+        return {
+          success: true,
+          data: null,
+          message: getHttpStatusMessage(statusCode),
+        };
+      }
+  
+      const data = await response.json();
   
       return {
         success: true,
         data: data as T,
         message: data.msg ?? getHttpStatusMessage(statusCode),
       };
-    } catch (error) {
-      const message =
-        error instanceof Error ? error.message : "Unknown error occurred";
+    } catch (err: any) {
+      const errorPayload = {
+        path: url,
+        method,
+        statusCode: 0,
+        message: err.message || "Network error",
+      };
   
-      // Track the error if the fetch itself failed (e.g., network error)
-      trackApiErrorToGA({
-        path: endpoint,
-        method: options.method || "GET",
-        message,
-      });
+      // Log the network error, except when it's the error logging endpoint itself
+      await this.logError(errorPayload, endpoint);
   
-      // Show a toast notification for the error
       toast({
-        title: "API Error",
-        description: message,
+        title: "Network Error",
+        description: errorPayload.message,
         variant: "destructive",
       });
   
-      return { success: false, error: message };
+      throw new Error(errorPayload.message);
     }
   }
+  
+  // protected async get<T>(endpoint: string): Promise<ApiResponse<T>> {
+  //   return this.fetchApi<T>(endpoint, { method: "GET" });
+  // }
 
-  protected async get<T>(endpoint: string): Promise<ApiResponse<T>> {
-    return this.fetchApi<T>(endpoint, { method: "GET" });
-  }
+  // protected async post<T>(
+  //   endpoint: string,
+  //   data: any
+  // ): Promise<ApiResponse<T>> {
+  //   return this.fetchApi<T>(endpoint, {
+  //     method: "POST",
+  //     body: JSON.stringify(data),
+  //   });
+  // }
 
-  protected async post<T>(
-    endpoint: string,
-    data: any
-  ): Promise<ApiResponse<T>> {
-    return this.fetchApi<T>(endpoint, {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-  }
+  // protected async put<T>(endpoint: string, data: any): Promise<ApiResponse<T>> {
+  //   return this.fetchApi<T>(endpoint, {
+  //     method: "PUT",
+  //     body: JSON.stringify(data),
+  //   });
+  // }
 
-  protected async put<T>(endpoint: string, data: any): Promise<ApiResponse<T>> {
-    return this.fetchApi<T>(endpoint, {
-      method: "PUT",
-      body: JSON.stringify(data),
-    });
-  }
-
-  protected async delete<T>(endpoint: string): Promise<ApiResponse<T>> {
-    return this.fetchApi<T>(endpoint, { method: "DELETE" });
-  }
+  // protected async delete<T>(endpoint: string): Promise<ApiResponse<T>> {
+  //   return this.fetchApi<T>(endpoint, { method: "DELETE" });
+  // }
 }

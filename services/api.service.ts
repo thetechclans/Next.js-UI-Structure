@@ -31,13 +31,16 @@ export class APIService extends BaseApiService {
     return response;
   }
 
+
   async getAll<T>(params: ApiRequestParams): Promise<ApiResponse<T[]>> {
+    console.log("api.service.ts:42:", params.endpoint);
     const response = await this.fetchApi<T[]>(
       params.endpoint,
       { method: "GET" },
       params.queryParams
     );
 
+    console.log("🚀 ~ file: api.service.ts:42 ~ APIService ~ getAll ~ response:", params.endpoint);
     return response;
   }
 
@@ -63,10 +66,10 @@ export class APIService extends BaseApiService {
   }
 
 
-  async delete<T>(endpoint: string): Promise<ApiResponse<T>> {
-    // Implement using base class method
-    return super.delete<T>(endpoint);
-  }
+  // async delete<T>(endpoint: string): Promise<ApiResponse<T>> {
+  //   // Implement using base class method
+  //   return super.delete<T>(endpoint);
+  // }
 
   // New unified delete method with params
   async deleteItem<T>(params: ApiRequestParams): Promise<boolean> {

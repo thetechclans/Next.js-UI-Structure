@@ -9,6 +9,7 @@ import { apiService } from "@/services/api.service";
 import { API_PATHS } from "@/services/api-endpoints";
 import { DQMSQueryParams, DQMSPayload, DQMSModel } from "@/models/dqms.model";
 import { Loader2 } from "lucide-react"; // Import the circular loader icon
+import { ApiErrorLog, PaginatedApiErrorLogs } from "@/models/error-log.model";
 
 function createColumn<T>(
   header: string,
@@ -18,14 +19,14 @@ function createColumn<T>(
 }
 
 export default function MemberStatusPage() {
-  const [data, setData] = useState<DQMSModel[]>([]);
+  const [data, setData] = useState<ApiErrorLog[]>([]);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
-    instancename: "",
-    parentname: "",
+    message: "",
+    method: "",
   });
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [currentItem, setCurrentItem] = useState<DQMSModel | null>(null);
+  const [currentItem, setCurrentItem] = useState<ApiErrorLog | null>(null);
 
   // Pagination state
   const [pagination, setPagination] = useState({
@@ -36,41 +37,42 @@ export default function MemberStatusPage() {
     showPagination: false, // Add this flag to control pagination visibility
   });
 
-  const fetchData = async (page: number = 1) => {
+   const fetchData = async (page: number = 1) => {
     setLoading(true);
     try {
       const params: DQMSQueryParams = {
-        page,
-        // masterparentcode: 85566,
-        // objecttypecode: 2,
-        // iskeytag: false,
-        // objectname: "DQMS",
+      page,
+      // masterparentcode: 85566,
+      // objecttypecode: 2,
+      // iskeytag: false,
+      // objectname: "DQMS",
       };
-
+  
       const { results, count, next, previous } =
-        await apiService.getAllPaginated<DQMSModel>({
-          endpoint: API_PATHS.DQMS,
-          queryParams: params,
-        });
-
+      await apiService.getAllPaginated<ApiErrorLog>({
+        endpoint: API_PATHS.ERROR_LOG,
+        queryParams: params,
+      });
+  
       setData(results || []);
-
+  
       // Update pagination state and show pagination
       setPagination({
-        currentPage: page,
-        pageCount: Math.ceil(count / 10),
-        hasNext: !!next,
-        hasPrevious: !!previous,
-        showPagination: true, // Set to true after successful API call
+      currentPage: page,
+      pageCount: Math.ceil(count / 10),
+      hasNext: !!next,
+      hasPrevious: !!previous,
+      showPagination: true, // Set to true after successful API call
       });
     } finally {
       setLoading(false);
     }
-  };
-
-  useEffect(() => {
+    };
+  
+    useEffect(() => {
     fetchData();
-  }, []);
+    console.log("Data repeating:"); // Log the fetched data
+    }, []);
 
   const handlePageChange = (page: number) => {
     setPagination(prev => ({...prev, showPagination: false})); // Hide pagination during loading
@@ -90,10 +92,10 @@ export default function MemberStatusPage() {
 
   // Then use it like this:
   const columns = [
-    createColumn<DQMSModel>("Code", "code"),
-    createColumn<DQMSModel>("Instancename", "instancename"),
-    createColumn<DQMSModel>("Object Name", "objectname"),
-    createColumn<DQMSModel>("Parent Name", (item) => item.parentname || "N/A"),
+    createColumn<ApiErrorLog>("Message", "message"),
+    createColumn<ApiErrorLog>("Method", "method"),
+    createColumn<ApiErrorLog>("Paths", "path"),
+    createColumn<ApiErrorLog>("Status Code", "statusCode"),
   ];
 
   
@@ -125,12 +127,12 @@ export default function MemberStatusPage() {
           <DataTable
             data={data}
             columns={columns}
-            keyField="code"
+            keyField="path"
             onEdit={(item) => {
               setCurrentItem(item);
               setForm({
-                instancename: item.instancename,
-                parentname: item.parentname,
+                message: item.message,
+                method: item.method,
               });
               setIsDialogOpen(true);
             }}
@@ -155,13 +157,13 @@ export default function MemberStatusPage() {
           </DialogTitle>
           <Input
             placeholder="Technical Contact Email"
-            value={form.instancename}
-            onChange={(e) => setForm({ ...form, instancename: e.target.value })}
+            value={form.message}
+            onChange={(e) => setForm({ ...form, message: e.target.value })}
           />
           <Input
             placeholder="Technical Contact Name"
-            value={form.parentname}
-            onChange={(e) => setForm({ ...form, parentname: e.target.value })}
+            value={form.method}
+            onChange={(e) => setForm({ ...form, method: e.target.value })}
           />
           <Button onClick={handleSave}>Save</Button>
         </DialogContent>
