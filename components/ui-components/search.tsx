@@ -1,63 +1,64 @@
 "use client"
 
-import type React from "react"
-
-import { forwardRef } from "react"
-import { cn } from "@/lib/utils"
-import { Input, type InputProps } from "./input"
+import { useState, useCallback } from 'react';
+import debounce from 'lodash/debounce';
 import { X, SearchIcon } from "lucide-react"
-import { Button } from "../ui/button"
 
-export interface SearchProps extends Omit<InputProps, "onChange"> {
-  onSearch?: (value: string) => void
-  onChange?: (value: string) => void
-  onClear?: () => void
-  value?: string
+
+interface SearchBoxProps {
+  onSearch: (query: string) => void;
+  isSidebarOpen?: boolean; // Add prop to handle sidebar open/close state
 }
 
-const Search = forwardRef<HTMLInputElement, SearchProps>(
-  ({ className, onSearch, onChange, onClear, value = "", ...props }, ref) => {
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      onChange?.(e.target.value)
-    }
+const SearchBox: React.FC<SearchBoxProps> = ({ onSearch, isSidebarOpen = false }) => {
+  const [query, setQuery] = useState('');
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === "Enter") {
-        onSearch?.(value)
-      }
-    }
+  
+  const debouncedSearch = useCallback(
+    debounce((searchQuery: string) => onSearch(searchQuery), 500),
+    [onSearch]
+  );
 
-    const handleClear = () => {
-      onClear?.()
-    }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newQuery = e.target.value;
+    setQuery(newQuery);
+    debouncedSearch(newQuery);
+  };
 
-    return (
-      <div className={cn("relative", className)}>
-        <SearchIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-        <Input
-          ref={ref}
-          className={cn("pl-10 pr-10", className)}
-          value={value}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          type="search"
-          {...props}
-        />
-        {value && (
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            className="absolute right-0 top-0 h-full w-10 rounded-l-none p-0"
-            onClick={handleClear}
-          >
-            {/* <X className="h-4 w-4" /> */}
-          </Button>
-        )}
-      </div>
-    )
-  },
-)
-Search.displayName = "Search"
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSearch(query);
+  };
 
-export { Search }
+  return (
+    <div
+      className={`flex items-center text-black p-2  ${isSidebarOpen ? 'md:pl-64' : ''}`} // Adjust padding based on sidebar state
+    >
+      {/* Optionally hide search in mobile when sidebar is open */}
+      {!isSidebarOpen && (
+        <form onSubmit={handleSubmit} className="flex w-full md:w-auto">
+          <div className="relative md:w-[395px] w-full h-[48px]">
+            <input
+              type="text"
+              className={`w-full py-2 border border-[#E2E6EF] pl-10 pr-2
+               rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500`}
+              placeholder='searchhere'
+              value={query}
+              onChange={handleChange}
+              // style={{ textAlign: isRTL ? 'right' : 'left' }}
+            />
+            <div
+              className={`absolute inset-y-0  mb-1 left-0 pl-2
+              flex items-center text-[#78829D]  text-xl `}
+            >
+               <SearchIcon/> 
+            </div>
+          </div>
+        </form>
+      )}
+    </div>
+  );
+};
+
+export default SearchBox;
+

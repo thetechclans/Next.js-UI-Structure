@@ -16,7 +16,7 @@ export default function RootLayout({
   const pathname = usePathname();
 
   // Check if the current route is the login page
-  const isLoginPage = pathname === "/login";
+  const isLoginPage = pathname === "/";
 
   return (
     <html lang="en">

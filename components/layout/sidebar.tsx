@@ -31,7 +31,7 @@ export function SidebarLayout({ children }: SidebarProps) {
     {
       title: t("home"),
       icon: Home,
-      path: "/",
+      path: "/home",
     },
     {
       title: t("user_management"),

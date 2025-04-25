@@ -81,7 +81,7 @@ export class APIService extends BaseApiService {
 
   async update<T>(params: ApiRequestParams): Promise<ApiResponse<T>> {
     const response = await this.fetchApi<T>(
-      `${params.endpoint}/${params.queryParams?.id}`,
+      `${params.endpoint}${params.queryParams?.id}/`,
       {
         method: "PUT",
         body: JSON.stringify(params.body),
@@ -92,15 +92,16 @@ export class APIService extends BaseApiService {
   }
 
 
-  // async delete<T>(endpoint: string): Promise<ApiResponse<T>> {
-  //   // Implement using base class method
-  //   return super.delete<T>(endpoint);
-  // }
+  async delete<T>(endpoint: string): Promise<ApiResponse<T>> {
+    // Implement using base class method
+    const response = await this.fetchApi<T>(endpoint, { method: "DELETE" });
+    return response;
+  }
 
   // New unified delete method with params
   async deleteItem<T>(params: ApiRequestParams): Promise<boolean> {
     const response = await this.fetchApi<T>(
-      `${params.endpoint}/${params.queryParams?.id}`,
+      `${params.endpoint}${params.queryParams?.id}`,
       { method: "DELETE" }
     );
     return response.success;

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { useLocale } from "@/components/locale/locale-provider"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Search } from "@/components/ui-components/search"
+// import { Search } from "@/components/ui-components/search"
 import { Pagination } from "@/components/ui-components/pagination"
 import { Notification } from "@/components/ui-components/notification"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
@@ -167,7 +167,7 @@ console.log("🚀 ~ file: page.tsx:50 ~ fetchUsers")
         </CardHeader>
         <CardContent>
           <div className="mb-4">
-            <Search
+            {/* <Search
               placeholder={t('search_users')}
               value={searchValue}
               onChange={setSearchValue}
@@ -176,7 +176,7 @@ console.log("🚀 ~ file: page.tsx:50 ~ fetchUsers")
                 setSearchValue('')
                 setCurrentPage(1)
               }}
-            />
+            /> */}
           </div>
 
           <div className="rounded-md border w-full overflow-hidden">

@@ -5,5 +5,5 @@ export const API_PATHS = {
   DQMS: "apiDCMetaDataRepoFilters",
   LOGIN: "login/",
   DataSourceDetails: "pgDataSourceDetails",
-  DC: "apiDCCategoryDetails",
+  DC: "apiDCCategoryDetails/",
 }

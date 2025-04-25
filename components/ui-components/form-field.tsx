@@ -9,6 +9,7 @@ export interface FormFieldProps extends InputProps {
   label?: string;
   required?: boolean;
   helperText?: string;
+  className?: string;
 }
 
 const FormField = forwardRef<HTMLInputElement, FormFieldProps>(

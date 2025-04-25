@@ -1,73 +1,99 @@
 // components/ui/data-table.tsx
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-  } from "@/components/ui/table";
-  import { Button } from "./button";
-  import {
-    Pagination,
-    PaginationContent,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-  } from "./pagination";
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Button } from "./button";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "./pagination";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-  
-  export interface ColumnDef<T> {
-    header: string;
-    accessor: keyof T | ((item: T) => React.ReactNode);
-    className?: string;
-  }
-  
-  interface DataTableProps<T> {
-    data: T[];
-    columns: ColumnDef<T>[];
-    keyField: keyof T;
-    onEdit?: (item: T) => void;
-    onDelete?: (id: any) => void;
-    className?: string;
-    pagination?: {
-      currentPage: number;
-      pageCount: number;
-      hasNext: boolean;
-      hasPrevious: boolean;
-      onPageChange: (page: number) => void;
-    };
-  }
-  
-  export function DataTable<T>({
-    data,
-    columns,
-    keyField,
-    onEdit,
-    onDelete,
-    className,
-    pagination,
-  }: DataTableProps<T>) {
-    return (
+import { useState } from "react";
+import SearchBox from "../ui-components/search";
+
+export interface ColumnDef<T> {
+  header: string;
+  accessor: keyof T | ((item: T) => React.ReactNode);
+  className?: string;
+}
+
+interface DataTableProps<T> {
+  data: T[];
+  columns: ColumnDef<T>[];
+  keyField: keyof T;
+  onEdit?: (item: T) => void;
+  onDelete?: (id: any) => void;
+  className?: string;
+  pagination?: {
+    currentPage: number;
+    pageCount: number;
+    hasNext: boolean;
+    hasPrevious: boolean;
+    onPageChange: (page: number) => void;
+  };
+  onSearch?: (query: string) => void;
+  initialSearchQuery?: string;
+}
+
+export function DataTable<T>({
+  data,
+  columns,
+  keyField,
+  onEdit,
+  onDelete,
+  className,
+  pagination,
+  onSearch,
+  initialSearchQuery,
+}: DataTableProps<T>) {
+  const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    if (onSearch) {
+      onSearch(query);
+    }
+  };
+
+  return (
+    <div>
+       {onSearch && (
+          <div className="mb-4">
+            <SearchBox onSearch={handleSearch} />
+          </div>
+        )}
       <div className={className}>
         <Table>
           {/* Table content remains the same */}
           <TableHeader>
-            <TableRow >
+            <TableRow>
               {columns.map((column) => (
                 <TableHead key={column.header.toString()}>
                   {column.header}
                 </TableHead>
               ))}
-              {(onEdit || onDelete) && <TableHead className="text-right">Actions</TableHead>}
+              {(onEdit || onDelete) && (
+                <TableHead className="text-right">Actions</TableHead>
+              )}
             </TableRow>
           </TableHeader>
           <TableBody>
             {data.map((item, index) => (
               <TableRow key={index}>
                 {columns.map((column) => (
-                  <TableCell key={column.header.toString()} className={column.className}>
+                  <TableCell
+                    key={column.header.toString()}
+                    className={column.className}
+                  >
                     {typeof column.accessor === "function"
                       ? column.accessor(item)
                       : String(item[column.accessor])}
@@ -76,7 +102,11 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
                 {(onEdit || onDelete) && (
                   <TableCell className="text-right space-x-2">
                     {onEdit && (
-                      <Button variant="outline" size="sm" onClick={() => onEdit(item)}>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => onEdit(item)}
+                      >
                         Edit
                       </Button>
                     )}
@@ -95,27 +125,32 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
             ))}
           </TableBody>
         </Table>
-  
-        {pagination && (
-          <Pagination className="mt-4">
-            <PaginationContent>
-              <PaginationItem>
-                <Button
-                  variant="ghost"
-                  className={!pagination.hasPrevious ? "opacity-50 cursor-not-allowed" : ""}
-                  onClick={() => {
-                    if (pagination.hasPrevious) {
-                      pagination.onPageChange(pagination.currentPage - 1);
-                    }
-                  }}
-                  disabled={!pagination.hasPrevious}
-                >
-                  <ChevronLeft className="h-4 w-4 mr-2" />
-                  Previous
-                </Button>
-              </PaginationItem>
-              
-              {Array.from({ length: Math.min(5, pagination.pageCount) }, (_, i) => {
+      </div>
+
+      {pagination && (
+        <Pagination className="mt-4">
+          <PaginationContent>
+            <PaginationItem>
+              <Button
+                variant="ghost"
+                className={
+                  !pagination.hasPrevious ? "opacity-50 cursor-not-allowed" : ""
+                }
+                onClick={() => {
+                  if (pagination.hasPrevious) {
+                    pagination.onPageChange(pagination.currentPage - 1);
+                  }
+                }}
+                disabled={!pagination.hasPrevious}
+              >
+                <ChevronLeft className="h-4 w-4 mr-2" />
+                Previous
+              </Button>
+            </PaginationItem>
+
+            {Array.from(
+              { length: Math.min(5, pagination.pageCount) },
+              (_, i) => {
                 let pageNum;
                 if (pagination.pageCount <= 5) {
                   pageNum = i + 1;
@@ -126,7 +161,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
                 } else {
                   pageNum = pagination.currentPage - 2 + i;
                 }
-                
+
                 return (
                   <PaginationItem key={pageNum}>
                     <PaginationLink
@@ -137,26 +172,29 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
                     </PaginationLink>
                   </PaginationItem>
                 );
-              })}
-  
-              <PaginationItem>
-                <Button
-                  variant="ghost"
-                  className={!pagination.hasNext ? "opacity-50 cursor-not-allowed" : ""}
-                  onClick={() => {
-                    if (pagination.hasNext) {
-                      pagination.onPageChange(pagination.currentPage + 1);
-                    }
-                  }}
-                  disabled={!pagination.hasNext}
-                >
-                  Next
-                  <ChevronRight className="h-4 w-4 ml-2" />
-                </Button>
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
-        )}
-      </div>
-    );
-  }
+              }
+            )}
+
+            <PaginationItem>
+              <Button
+                variant="ghost"
+                className={
+                  !pagination.hasNext ? "opacity-50 cursor-not-allowed" : ""
+                }
+                onClick={() => {
+                  if (pagination.hasNext) {
+                    pagination.onPageChange(pagination.currentPage + 1);
+                  }
+                }}
+                disabled={!pagination.hasNext}
+              >
+                Next
+                <ChevronRight className="h-4 w-4 ml-2" />
+              </Button>
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      )}
+    </div>
+  );
+}

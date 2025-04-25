@@ -1,5 +1,5 @@
 export interface DCMdl{
-    code: number
+    code?: number
     name: string,
     objecttypecode: number,
     metadatatypecode: number,
