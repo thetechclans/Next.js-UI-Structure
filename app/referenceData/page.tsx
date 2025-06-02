@@ -9,10 +9,11 @@ import { API_PATHS } from "@/services/api-endpoints";
 import { Loader2 } from "lucide-react";
 import { DCMdl } from "@/models/dqms.model";
 import { Notification } from "@/components/ui-components/notification";
-import { DataTable } from "@/components/ui/data-table";
+import { DataTable } from "@/components/ui-components/data-table";
 import { ConfirmDialog } from "@/components/ui/Confirm-Dialog";
 import { FormField } from "@/components/ui-components/form-field";
 import SearchBox from "@/components/ui-components/search";
+import { format } from "util";
 
 function createColumn<T>(
   header: string,
@@ -22,7 +23,98 @@ function createColumn<T>(
 }
 
 export default function DCPage() {
-  const [data, setData] = useState<DCMdl[]>([]);
+  const [data, setData] = useState([
+    // Initial empty data array
+    // This will be populated with fetched data
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "male",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+  ]);
   const [form, setForm] = useState<Partial<DCMdl>>({});
   const [loading, setLoading] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -43,40 +135,43 @@ export default function DCPage() {
   const [notificationMessage, setNotificationMessage] = useState("");
   const [search, setSearch] = useState("");
 
-  const fetchData = async (search: string = "", page: number = 1) => {
-    setLoading(true);
-    try {
-      const queryParams = {
-        page: page,
-        search: search.trim(),
-      };
+  // const fetchData = async (search: string = "", page: number = 1) => {
+  //   setLoading(true);
+  //   try {
+  //     const queryParams = {
+  //       page: page,
+  //       search: search.trim(),
+  //     };
 
-      const { results, count, next, previous } =
-        await apiService.getAllPaginated<DCMdl>({
-          endpoint: API_PATHS.DC,
-          queryParams: queryParams,
-        });
+  //     const { results, count, next, previous } =
+  //       await apiService.getAllPaginated<DCMdl>({
+  //         endpoint: API_PATHS.DC,
+  //         queryParams: queryParams,
+  //       });
 
-      setData(results || []);
-      setPagination({
-        currentPage: page,
-        pageCount: Math.ceil(count / 10),
-        hasNext: !!next,
-        hasPrevious: !!previous,
-        showPagination: true,
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     setData(results || []);
+  //     setPagination({
+  //       currentPage: page,
+  //       pageCount: Math.ceil(count / 10),
+  //       hasNext: !!next,
+  //       hasPrevious: !!previous,
+  //       showPagination: true,
+  //     });
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchData();
-  }, []); // Fetch data when search or page changes
+  // useEffect(() => {
+  //   fetchData();
+  // }, []); // Fetch data when search or page changes
+
+
+  console.log(format(new Date("2024-07-15"), "MMM dd yyyy"));
 
   const handleSearch = (searchTerm: string) => {
     setSearch(searchTerm); // Update the search state
-    fetchData(searchTerm); // Fetch data with the new search term and reset to page 1
+    // fetchData(searchTerm); // Fetch data with the new search term and reset to page 1
   };
 
   const showNotificationMessage = (
@@ -90,7 +185,7 @@ export default function DCPage() {
 
   const handlePageChange = (page: number) => {
     setPagination((prev) => ({ ...prev, showPagination: false }));
-    fetchData(search, page); // Fetch data with the new page number
+    // fetchData(search, page); // Fetch data with the new page number
   };
 
   const handleSave = async () => {
@@ -110,7 +205,7 @@ export default function DCPage() {
         showNotificationMessage("success", "Created successfully");
       }
       setIsDialogOpen(false);
-      fetchData();
+      // fetchData();
     } catch (error) {
       showNotificationMessage("error", "An error occurred while saving.");
     }
@@ -132,17 +227,17 @@ export default function DCPage() {
     setShowNotification(true);
     setNotificationType("success");
     setNotificationMessage("Deleted successfully");
-    fetchData();
+    // fetchData();
   };
 
   const columns = [
-    createColumn<DCMdl>("Name", "name"),
-    createColumn<DCMdl>("Objecttypecode", "objecttypecode"),
-    createColumn<DCMdl>("Metadatatypecode", "metadatatypecode"),
-    createColumn<DCMdl>("Ismultivalue", "ismultivalue"),
-    createColumn<DCMdl>("Issla", "issla"),
-    createColumn<DCMdl>("Isbuiltin", "isbuiltin"),
-    createColumn<DCMdl>("Description", "description"),
+    createColumn<DCMdl>("Details Of Complaints", "Details_Of_Complaints"),
+    createColumn<DCMdl>("Gender", "Gender"),
+    createColumn<DCMdl>("Reference Number", "Reference_Number"),
+    createColumn<DCMdl>("Date of Construction", "Date_of_Construction"),
+    createColumn<DCMdl>("The Condition", "The_Condition"),
+    // createColumn<DCMdl>("Isbuiltin", "isbuiltin"),
+    // createColumn<DCMdl>("Description", "description"),
   ];
 
   return (
@@ -150,6 +245,7 @@ export default function DCPage() {
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-bold">Data Catalog</h2>
         <Button
+        className="shadow-lg hover:shadow-xl transition-all duration-300"
           onClick={() => {
             setCurrentItem(null);
             setIsDialogOpen(true);
@@ -167,10 +263,10 @@ export default function DCPage() {
         </div>
       )}
 
-      {!loading && (
+      {!loading && (  
         <>
           <DataTable
-            className="border border-spacing-10 border-red-500 rounded-lg w-full overflow-hidden"
+            className="border border-gray-300 w-full overflow-hidden"
             data={data}
             columns={columns}
             keyField="code"
@@ -181,6 +277,7 @@ export default function DCPage() {
             }}
             onDelete={handleDelete}
             onSearch={handleSearch}
+            showdropdown={true}
             pagination={
               pagination.showPagination
                 ? {
@@ -205,7 +302,7 @@ export default function DCPage() {
         />
       )}
 
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      {/* <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="w-full max-w-[90vw] sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-3xl space-y-4 p-4 sm:p-6 max-h-[90vh] rounded-lg overflow-auto hide-scrollbar">
           <DialogTitle className="font-semibold text-lg">
             {currentItem ? "Edit" : "Create"} Data Catalog Item
@@ -265,7 +362,7 @@ export default function DCPage() {
 
           <Button onClick={handleSave}>Save</Button>
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
 
       {/* <ConfirmDialog
         open={isConfirmDialogOpen}

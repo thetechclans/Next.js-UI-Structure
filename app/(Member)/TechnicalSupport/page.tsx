@@ -1,0 +1,264 @@
+"use client"
+import React, { JSX, ReactNode, useState } from "react";
+import { Label } from "@/components/ui/label";
+import { Card } from "@/components/ui/card";
+import { DCMdl } from "@/models/dqms.model";
+import { apiService } from "@/services/api.service";
+import { API_PATHS } from "@/services/api-endpoints";
+import { Button } from "@/components/ui/button";
+import { ChevronDown, Loader2 } from "lucide-react";
+import { DataTable } from "@/components/ui-components/data-table";
+import { format } from "date-fns";
+import BgSideCard from "@/components/ui/bgSideCard";
+
+export default function TechnicalSupport(data: any): JSX.Element {
+  const [dataState, setData] = useState([
+    // Initial empty data array
+    // This will be populated with fetched data
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "male",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+  ]);
+      const [form, setForm] = useState<Partial<DCMdl>>({});
+      const [loading, setLoading] = useState(false);
+      const [isDialogOpen, setIsDialogOpen] = useState(false);
+      const [currentItem, setCurrentItem] = useState<DCMdl | null>(null);
+      const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
+      const [itemToDelete, setItemToDelete] = useState<number | null>(null);
+      const [pagination, setPagination] = useState({
+        currentPage: 1,
+        pageCount: 10,
+        hasNext: false,
+        hasPrevious: false,
+        showPagination: true,
+      });
+      const [showNotification, setShowNotification] = useState(false);
+      const [notificationType, setNotificationType] = useState<
+        "success" | "error" | "info" | "warning"
+      >("info");
+      const [notificationMessage, setNotificationMessage] = useState("");
+      const [search, setSearch] = useState("");
+   
+      const handleSearch = (searchTerm: string) => {
+        setSearch(searchTerm); // Update the search state
+        // fetchData(searchTerm); // Fetch data with the new search term and reset to page 1
+      };
+    
+      const showNotificationMessage = (
+        type: "success" | "error" | "info" | "warning",
+        message: string
+      ) => {
+        setNotificationType(type);
+        setNotificationMessage(message);
+        setShowNotification(false);
+      };
+    
+      const handlePageChange = (page: number) => {
+        setPagination((prev: any) => ({ ...prev, showPagination: false }));
+        // fetchData(search, page); // Fetch data with the new page number
+      };
+    
+    //   const handleSave = async () => {
+    //     try {
+    //       if (currentItem) {
+    //         await apiService.update<DCMdl>({
+    //           endpoint: API_PATHS.DC,
+    //           body: form,
+    //           queryParams: { id: currentItem.code },
+    //         });
+    //         showNotificationMessage("success", "Updated successfully");
+    //       } else {
+    //         await apiService.create<DCMdl>({
+    //           endpoint: API_PATHS.DC,
+    //           body: form,
+    //         });
+    //         showNotificationMessage("success", "Created successfully");
+    //       }
+    //       setIsDialogOpen(false);
+    //       // fetchData();
+    //     } catch (error) {
+    //       showNotificationMessage("error", "An error occurred while saving.");
+    //     }
+    //   };
+    
+    //   const handleChange = (key: keyof DCMdl, value: any) => {
+    //     setForm((prev: any) => ({
+    //       ...prev,
+    //       [key]: value,
+    //     }));
+    //   };
+    
+      const handleDelete = async (id: number) => {
+        // Implement your delete logic here
+        await apiService.deleteItem<DCMdl>({
+          endpoint: API_PATHS.DC,
+          queryParams: { id },
+        });
+        setShowNotification(true);
+        setNotificationType("success");
+        setNotificationMessage("Deleted successfully");
+        // fetchData();
+      };
+    
+      type TableRow = {
+        code: number;
+        Details_Of_Complaints: string;
+        Gender: string;
+        Reference_Number: number;
+        Date_of_Construction: string;
+        The_Condition: string;
+      };
+
+function createColumn<T>(header: string, accessor: keyof T | ((item: T) => React.ReactNode)) {
+  return {
+    header,
+    accessor,
+  };
+}
+
+const columns = [
+  createColumn<TableRow>("Details Of Complaints", "Details_Of_Complaints"),
+  createColumn<TableRow>("Gender", "Gender"),
+  createColumn<TableRow>("Reference Number", "Reference_Number"),
+  createColumn<TableRow>("Date of Construction", "Date_of_Construction"),
+  createColumn<TableRow>("The Condition", "The_Condition"),
+];
+
+return (
+    <BgSideCard className="w-full overflow-x-hidden items-center " search={false} button={true} title={"Technical Support"}>
+      <div className="p-6 space-y-4">
+
+        {loading && (
+          <div className="flex justify-center items-center h-64">
+            <Loader2 className="h-12 w-12 animate-spin text-primary" />
+          </div>
+        )}
+
+        {!loading && (
+          <>
+            <DataTable
+              className="border border-gray-300 w-full overflow-hidden"
+              data={dataState}
+              columns={columns}
+              keyField="code"
+              icon={<ChevronDown className="text-gray-200"/>}
+            //   onEdit={(item: DCMdl) => {
+            //     setCurrentItem(item);
+            //     setForm(item);
+            //     setIsDialogOpen(true);
+            //   }}
+            //   onDelete={handleDelete}
+              onSearch={handleSearch}
+              showdropdown={true}
+              pagination={
+                pagination.showPagination
+                  ? {
+                      currentPage: pagination.currentPage,
+                      pageCount: pagination.pageCount,
+                      // hasNext: pagination.hasNext,
+                      // hasPrevious: pagination.hasPrevious,
+                      onPageChange: handlePageChange,
+                    }
+                  : undefined
+              }
+            />
+          </>
+        )}
+
+        {showNotification && (
+          // Replace 'Notification' with your custom notification component import
+          // Example: <CustomNotification ... /> if you have such a component
+          <div className={`notification notification-${notificationType}`}>
+            <strong>{notificationType}</strong>: {notificationMessage}
+            <button onClick={() => setShowNotification(false)}>Close</button>
+          </div>
+        )}
+      </div>
+    </BgSideCard>
+);
+}

@@ -2,7 +2,7 @@ import { toast } from "@/hooks/use-toast";
 import { apiService } from "./api.service";
 import { API_PATHS } from "./api-endpoints";
 import { getHttpStatusMessage } from "./http-status-codes";
-import { logErrorToFirebase } from "./log-error-to-firebase";
+// import { logErrorToFirebase } from "./log-error-to-firebase";
 
 export interface ApiResponse<T = any> {
   success: boolean;
@@ -53,7 +53,7 @@ export class BaseApiService {
     } catch (apiError) {
       try {
         // Fallback to Firebase logging
-        await logErrorToFirebase(errorPayload);
+        // await logErrorToFirebase(errorPayload);
       } catch (firebaseError) {
         console.error("🔥 Failed to log error to Firebase as fallback", firebaseError);
       }

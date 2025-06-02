@@ -2,16 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Alexandria";
+  src: url(../public/fonts/alexandria/Alexandria-Regular.ttf);
+}
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Alexandria", sans-serif;
 }
 
+.heroImage {
+background: linear-gradient(to top, #a7a6cb 0%, #8989ba 52%, #8989ba 100%);
+}
+.textstyle {
+  font-family: "Alexandria", sans-serif;
+}
+
+.glossy {
+  background-color: rgba(0, 0, 0, 0.226);
+  backdrop-filter: blur(20px);
+}
+.no-spinner::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+.no-spinner {
+  scrollbar-width: none;
+}
+.Hidden {
+  overflow: hidden;
+}
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
+:root {
+  /* --primary-color: linear-gradient(270.49deg, #00a75a -8.46%, #3bce8a 105.9%);
+   */
+  --primary-color: linear-gradient(to top, #a7a6cb 0%, #8989ba 52%, #8989ba 100%);
 
+  --primary-button: linear-gradient(to top, #abaac7 17%, #9696b9 52%, #9393b3 100%);
+  --hover-color: linear-gradient(to top, #b7b7c7 26%, #a8a8c2 52%, #9c9cbe 100%);
+}
+
+.baseimage {
+  width: 100%;
+  height: 100%;
+  background-image: url("/imgs/donation1.jpg");
+  background-size: cover;
+  background-position: center, center;
+  background-repeat: no-repeat;
+}
+.backimage {
+  width: 100%;
+  height: 100%;
+  background-image: url("/imgs/wallpaperflare.com_wallpaper.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -20,8 +71,8 @@ body {
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
+    --prima: 0 0% 9%;
+    --prima-foreground: 0 0% 98%;
     --secondary: 0 0% 96.1%;
     --secondary-foreground: 0 0% 9%;
     --muted: 0 0% 96.1%;
@@ -41,8 +92,8 @@ body {
     --radius: 0.5rem;
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-prima: 240 5.9% 10%;
+    --sidebar-prima-foreground: 0 0% 98%;
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
@@ -55,8 +106,8 @@ body {
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
+    --prima: 0 0% 98%;
+    --prima-foreground: 0 0% 9%;
     --secondary: 0 0% 14.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 14.9%;
@@ -93,13 +144,11 @@ body {
   }
 }
 
-
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
 .hide-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;     /* Firefox */
-  
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

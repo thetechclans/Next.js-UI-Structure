@@ -1,4 +1,4 @@
-export type Locale = "en" | "ar"
+export type Locale = "en" | "ar";
 
 export type TranslationKey =
   | "search"
@@ -58,9 +58,23 @@ export type TranslationKey =
   | "from_last_month"
   // Menu
   | "menu"
-  | "home"
-  | "user_management"
-  | "referenceData"
+  | "Home"
+  | "Request_to_join_Member"
+  | "Beneficiary_Request"
+  | "Financial_Management"
+  | "Member_Management"
+  | "store_management"
+  | "Beneficiary_Management"
+  | "Meeting_Management"
+  | "Service_Management"
+  | "Frequently_Asked_Question"
+  | "Technical_Support"
+  | "Membership"
+  | "Vote"
+  | "Common_Questions"
+  | "Technical_Support"
+  | "Available_services"
+  | "My_Services"
   // User Management
   | "users"
   | "add_user"
@@ -103,7 +117,7 @@ export type TranslationKey =
   | "check_api_url"
   | "check_api_running"
   | "check_cors_settings"
-  | "check_network_connection"
+  | "check_network_connection";
 
 export const translations: Record<Locale, Record<TranslationKey, string>> = {
   en: {
@@ -164,9 +178,22 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     from_last_month: "from last month",
     // Menu
     menu: "Menu",
-    home: "Home",
-    user_management: "User Management",
-    referenceData: "Reference Data",
+    Home: "Home",
+    Request_to_join_Member: " Request to join Member",
+    Beneficiary_Request: "Beneficiary Request",
+    Financial_Management: "Financial Management",
+    Member_Management: "Member Management",
+    store_management: "store management",
+    Beneficiary_Management: "Beneficiary Management",
+    Meeting_Management: "Meeting Management",
+    Service_Management: "Service Management",
+    Frequently_Asked_Question: "Frequently Asked Question",
+    Technical_Support: "Technical Support",
+    Membership: "Membership",
+    Vote: "Vote",
+    Common_Questions: "Common Questions",
+    Available_services: "Available services",
+    My_Services: "My Services",
     // User Management
     users: "Users",
     add_user: "Add User",
@@ -200,10 +227,12 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     update: "Update",
     create: "Create",
     confirm_delete: "Confirm Delete",
-    delete_confirmation_message: "Are you sure you want to delete user '{username}'? This action cannot be undone.",
+    delete_confirmation_message:
+      "Are you sure you want to delete user '{username}'? This action cannot be undone.",
     // API Connection Error
     api_connection_error: "API Connection Error",
-    api_connection_error_message: "Unable to connect to the API. Please check your connection and try again.",
+    api_connection_error_message:
+      "Unable to connect to the API. Please check your connection and try again.",
     retry: "Retry",
     troubleshooting: "Troubleshooting",
     check_api_url: "Check API URL",
@@ -269,9 +298,22 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     from_last_month: "من الشهر الماضي",
     // Menu
     menu: "القائمة",
-    home: "الرئيسية",
-    user_management: "إدارة المستخدمين",
-    referenceData: "بيانات مرجعية",
+    Home: "الرئيسية",
+    Request_to_join_Member: "طلب الانضمام للعضوية",
+    Beneficiary_Request: "طلب مستفيد",
+    Financial_Management: "إدارة مالية",
+    Member_Management: "إدارة الأعضاء",
+    store_management: "إدارة المتجر",
+    Beneficiary_Management: "إدارة المستفيدين",
+    Meeting_Management: "إدارة الاجتماعات",
+    Service_Management: "إدارة الخدمات",
+    Frequently_Asked_Question: "القائمة القائمة",
+    Technical_Support: "الدعم الفني",
+    Membership: "العضوية",
+    Vote: "التصويت",
+    Common_Questions: "الأسئلة الشائعة",
+    Available_services: "الخدمات المتاحة",
+    My_Services: "خدماتي",
     // User Management
     users: "المستخدمين",
     add_user: "إضافة مستخدم",
@@ -305,10 +347,12 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     update: "تحديث",
     create: "إنشاء",
     confirm_delete: "تأكيد الحذف",
-    delete_confirmation_message: "هل أنت متأكد من حذف المستخدم '{username}'؟ لا يمكن التراجع عن هذا الإجراء.",
+    delete_confirmation_message:
+      "هل أنت متأكد من حذف المستخدم '{username}'؟ لا يمكن التراجع عن هذا الإجراء.",
     // API Connection Error
     api_connection_error: "خطأ في الاتصال بالواجهة البرمجية",
-    api_connection_error_message: "تعذر الاتصال بالواجهة البرمجية. يرجى التحقق من اتصالك والمحاولة مرة أخرى.",
+    api_connection_error_message:
+      "تعذر الاتصال بالواجهة البرمجية. يرجى التحقق من اتصالك والمحاولة مرة أخرى.",
     retry: "إعادة المحاولة",
     troubleshooting: "استكشاف الأخطاء وإصلاحها",
     check_api_url: "تحقق من عنوان URL للواجهة البرمجية",
@@ -316,4 +360,4 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     check_cors_settings: "تحقق من إعدادات CORS على خادم الواجهة البرمجية",
     check_network_connection: "تحقق من اتصال الشبكة الخاص بك",
   },
-}
+};

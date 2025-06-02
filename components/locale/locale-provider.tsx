@@ -5,6 +5,8 @@ import { createContext, useContext, useState, useEffect } from "react"
 import { translations, type Locale, type TranslationKey } from "./translations"
 
 interface LocaleContextType {
+  code: any
+  language: any
   locale: Locale
   t: (key: TranslationKey) => string
   setLocale: (locale: Locale) => void

@@ -21,7 +21,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 // import { Search } from "@/components/ui-components/search";
-import { Pagination } from "@/components/ui-components/pagination";
+import { PaginatedNav, Pagination } from "@/components/ui-components/pagination";
 import { Notification } from "@/components/ui-components/notification";
 import { OtpInput } from "@/components/ui-components/otp-input";
 import { useLocale } from "@/components/locale/locale-provider";
@@ -88,12 +88,9 @@ export default function Home() {
           </h2>
           <Card>
             <CardContent className="pt-6">
-              <Pagination
-                currentPage={currentPage}
-                totalPages={10}
-                onPageChange={setCurrentPage}
-                siblingCount={1}
-              />
+              <PaginatedNav currentPage={0} pageCount={0} onPageChange={function (page: number): void {
+                  throw new Error("Function not implemented.");
+              } } />
             </CardContent>
           </Card>
         </section>

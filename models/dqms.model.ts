@@ -1,10 +1,12 @@
+import { ReactNode } from "react"
+
 export interface DCMdl{
     code?: number
-    name: string,
-    objecttypecode: number,
-    metadatatypecode: number,
-    ismultivalue: boolean,
-    issla: boolean,
-    isbuiltin: boolean,
-    description: string,
+    Details_Of_Complaints: string,
+    icon?: ReactNode,
+    Gender: string,
+    Reference_Number: Number,
+    Date_of_Construction: string,
+    The_Condition: string,
+
 }

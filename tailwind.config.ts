@@ -9,15 +9,24 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        primary: 'var(--primary-color)',
+        Buttons: 'var(--primary-button)',
+        hover_Color: 'var(--hover-color)',
+      },
+      textColor: {
+       textprimary: 'var(--text-primary-color)'
+      },
       colors: {
+        SecondaryButton: "hsl(var(--Secondary-Button-Color))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+        prima: {
+          DEFAULT: "var(--prima)",
+          foreground: "var(--prima-foreground)",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -38,7 +47,8 @@ const config: Config = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
-        },
+        },  
+        
       },
     },
   },
