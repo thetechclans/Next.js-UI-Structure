@@ -1,3 +1,4 @@
+"use client";
 import React, { Children } from "react";
 import { Label } from "@/components/ui/label";
 import SearchBox from "@/components/ui-components/search";
@@ -64,11 +65,15 @@ const BgSideCard = ({
 
       <div className="mr-4 pr-4 pt-4 mt-4">
         {/* dir={data.isArabic ? "ltr" : "rtl"} */}
-        <Card className="w-full py-6 px-2 items-start inset-shadow-sm shadow-black rounded-none rounded-tr-[50px] bg-gray-300">
+          {/* <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-r-2 border-blue-200 opacity-50 -mt-6 mr-4 rounded-tl-xl" /> */}
+
+        <Card className="w-full py-6 px-2 items-start inset-shadow-lg shadow-black rounded-none rounded-tr-[30px] bg-stone-100">
           {search ? (
             <>
               <div className="flex relative w-full items-end justify-end">
-                <SearchBox />
+                <SearchBox onSearch={function (query: string): void {
+                  throw new Error("Function not implemented.");
+                } } />
               </div>
               <Separator />
             </>

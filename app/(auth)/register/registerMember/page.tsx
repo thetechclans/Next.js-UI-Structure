@@ -8,6 +8,7 @@ import WizardTwo from "../registerBenificiary/wizardTwo";
 import WizardMemberThree from "./WizardMemberThree";
 import { useState } from "react";
 import WizardOne from "../registerBenificiary/wizardOne";
+import Link from "next/link";
 
 export default function RegisterMember() {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,6 +24,7 @@ export default function RegisterMember() {
         stepLabels={["Details", "Personal Details", "Subscription"]}
         onFinish={handleFinish}
         renderButtons={({ next, prev, isFirstStep, isLastStep }) => (
+           <div>
           <div className="flex gap-4">
             {!isFirstStep && (
               <Button
@@ -39,8 +41,17 @@ export default function RegisterMember() {
               className="h-12 w-full text-base"
               type="submit"
             >
-              {isLastStep ? "Complete" : "Next"}
+              {isLastStep ? "Register" : "Next"}
             </Button>
+          </div>
+          <div className="w-full my-4 items-center">
+               <p className="text-center text-sm text-muted-foreground">
+          Already have an account?
+          <Link href="/login" className="text-primary underline-offset-4 hover:underline">
+            Sign In
+          </Link>
+        </p>
+            </div>
           </div>
         )}
       >

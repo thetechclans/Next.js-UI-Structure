@@ -22,6 +22,11 @@ export default function RegisterPage() {
   </div>
 
   <div className="relative z-10 w-full md:w-1/2 lg:w-1/3 p-4 mr-6">
+   <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-blue-200 opacity-50 -mt-2 -ml-2 rounded-tl-xl" />
+
+  {/* Bottom-Right Decorative Corner */}
+  <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-purple-200 opacity-50 -mb-2 -mr-2 rounded-br-xl" />
+
     <Card className="mx-auto h-1/6 rounded-xl backdrop-blur-sm bg-white/90 border border-white/20 shadow-2xl">
       <div className="space-y-3 text-center m-10">
         <Label className="text-4xl li">CMS</Label>

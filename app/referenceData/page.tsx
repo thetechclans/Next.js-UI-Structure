@@ -167,7 +167,7 @@ export default function DCPage() {
   // }, []); // Fetch data when search or page changes
 
 
-  console.log(format(new Date("2024-07-15"), "MMM dd yyyy"));
+  // console.log(format(new Date("2024-07-15"), "MMM dd yyyy"));
 
   const handleSearch = (searchTerm: string) => {
     setSearch(searchTerm); // Update the search state

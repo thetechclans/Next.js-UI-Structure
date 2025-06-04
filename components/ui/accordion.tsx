@@ -11,7 +11,7 @@ import { PaginatedNav } from "../ui-components/pagination"
 const Accordion = AccordionPrimitive.Root
 
 const accordionTriggerVariants = cva(
-  "flex flex-1 text-md text-gray-600 items-center justify-between py-4 font-medium [&[data-state=open]>svg]:rotate-90",
+  "flex flex-1 text-md text-gray-600 items-center justify-between py-4 font-medium [&[data-state=open]>svg]:rotate-180",
   {
     variants: {
       transition: {
@@ -59,7 +59,7 @@ const AccordionTrigger = React.forwardRef<
     >
       {children}
       {icon ?? (
-        <ChevronDown className="ml-2 h-4 w-4 rotate-0 shrink-0 transition-transform duration-200" />
+        <ChevronDown className="ml-2 h-4 w-4 rotate-90 shrink-0 transition-transform duration-200" />
       )}
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>

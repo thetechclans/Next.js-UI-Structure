@@ -1,9 +1,8 @@
-import React, { useState, useRef, ReactElement } from "react";
 import { Card } from "../ui/card";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { Camera, Icon, User } from "lucide-react";
-import { FormField } from "./form-field";
+import { useRef, useState } from "react";
 
 interface PopModalProps {
   title: string;
@@ -44,8 +43,8 @@ export default function PopModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <Card className={`p-6 w-full max-w-md ${className}`}>
+    <div className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-50">
+      <Card className={`p-6 w-full max-w-md bg-slate-200 ${className}`}>
         <div className="space-y-4">
           <div className="flex justify-between">
             <Label className="text-xl font-semibold block text-center">
@@ -97,7 +96,7 @@ export default function PopModal({
             )}
 
             <div
-              className={`grid gap-4 w-full`}
+              className={` gap-4 w-full`}
               style={{
                 gridTemplateColumns: `repeat(${fieldsPerRow}, minmax(0, 1fr))`,
               }}

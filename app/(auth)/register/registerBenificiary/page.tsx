@@ -8,6 +8,7 @@ import WizardOne from "./wizardOne";
 import WizardTwo from "./wizardTwo";
 import { Button } from "@/components/ui/button";
 import Wizard from "@/components/ui-components/wizard";
+import Link from "next/link";
 export default function BenificiaryRegister(): JSX.Element {
   const form = useForm();
 
@@ -17,6 +18,7 @@ export default function BenificiaryRegister(): JSX.Element {
         stepLabels={["Details", "Personal Details", "Subscription"]}
         onFinish={() => alert("All done!")}
         renderButtons={({ next, prev, isFirstStep, isLastStep }) => (
+          <div>
           <div className="flex gap-4">
             {!isFirstStep && (
               <Button
@@ -33,9 +35,19 @@ export default function BenificiaryRegister(): JSX.Element {
               className="h-12 w-full text-base"
               type="submit"
             >
-              {isLastStep ? "Complete" : "Register"}
+              {isLastStep ? "Register" : "Next"}
             </Button>
           </div>
+          <div className="w-full my-4 items-center">
+               <p className="text-center text-sm text-muted-foreground">
+          Already have an account?{" "}
+          <Link href="/login" className="text-primary underline-offset-4 hover:underline">
+            Sign In
+          </Link>
+        </p>
+            </div>
+          </div>
+          
         )}
       >
         {[<WizardOne />, <WizardTwo />]}

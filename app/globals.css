@@ -42,6 +42,7 @@ background: linear-gradient(to top, #a7a6cb 0%, #8989ba 52%, #8989ba 100%);
   /* --primary-color: linear-gradient(270.49deg, #00a75a -8.46%, #3bce8a 105.9%);
    */
   --primary-color: linear-gradient(to top, #a7a6cb 0%, #8989ba 52%, #8989ba 100%);
+  --secondary-bgcolor: linear-gradient(to top, #8b8b8d 17%, #bdbdc9 52%, #cdcde4 100%);
 
   --primary-button: linear-gradient(to top, #abaac7 17%, #9696b9 52%, #9393b3 100%);
   --hover-color: linear-gradient(to top, #b7b7c7 26%, #a8a8c2 52%, #9c9cbe 100%);

@@ -56,7 +56,7 @@ export function SidebarLayout({ children, role }: SidebarProps) {
     {
       title: t("Home"),
       icon: Home,
-      path: "/home",
+      path: "/adminDashboard",
       roles: { sidebarRoles: ["Admin"] },
     },
      {
@@ -68,55 +68,55 @@ export function SidebarLayout({ children, role }: SidebarProps) {
     {
       title: t("Request_to_join_Member"),
       icon: UserRoundCheck,
-      path: "/UserRoundCheck",
+      path: "/RequestMember",
       roles: { sidebarRoles: ["Admin"] },
     },
     {
       title: t("Beneficiary_Request"),
       icon: UserRoundCheck,
-      path: "/UserRoundCheck",
+      path: "/RequestBenificiary",
       roles: { sidebarRoles: ["Admin"] },
     },
     {
       title: t("Financial_Management"),
       icon: NotepadText,
-      path: "/NotepadText",
+      path: "/FinancialMagement",
       roles: { sidebarRoles: ["Admin"] },
     },
     {
       title: t("Member_Management"),
       icon: BadgeCheck,
-      path: "/BadgeCheck",
+      path: "/MemberManagement",
       roles: { sidebarRoles: ["Admin"] },
     },
     {
       title: t("store_management"),
       icon: ShoppingBag,
-      path: "/ShoppingBag",
+      path: "/ProductManagement",
       roles: { sidebarRoles: ["Admin"] },
     },
     {
       title: t("Beneficiary_Management"),
       icon: Users,
-      path: "/Users",
+      path: "/BeneficiaryManagement",
       roles: { sidebarRoles: ["Admin"] },
     },
     {
       title: t("Meeting_Management"),
       icon: CheckCheck,
-      path: "/CheckCheck",
+      path: "/MeetingManagement",
       roles: { sidebarRoles: ["Admin"] },
     },
     {
       title: t("Service_Management"),
       icon: Server,
-      path: "/Server",
+      path: "/ServiceManagement",
       roles: { sidebarRoles: ["Admin"] },
     },
     {
-      title: t("Frequently_Asked_Question"),
+      title: t("Common_Questions"),
       icon: Lightbulb,
-      path: "/Lightbulb",
+      path: "/Common&Questions",
       roles: { sidebarRoles: ["Admin"] },
     },
 
@@ -161,21 +161,14 @@ export function SidebarLayout({ children, role }: SidebarProps) {
     {
       title: t("Technical_Support"),
       icon: Headset,
-      path: "/TechnicalSupport",
+      path: "/adminTechnicalSupport",
       roles: { sidebarRoles: ["Admin"] },
     },
     {
       title: t("Technical_Support"),
       icon: Headset,
       path: "/TechnicalSupport",
-      roles: { sidebarRoles: ["Member"] },
-    },
-
-    {
-      title: t("Technical_Support"),
-      icon: Headset,
-      path: "/TechnicalSupport",
-      roles: { sidebarRoles: ["Beneficiary"] },
+      roles: { sidebarRoles: ["Member", "Beneficiary" ] },
     },
   ];
 
@@ -183,7 +176,7 @@ export function SidebarLayout({ children, role }: SidebarProps) {
     <SidebarProvider>
       <div className="flex min-h-screen w-full" dir={dir}>
         <Sidebar side={dir === "rtl" ? "right" : "left"}>
-          <SidebarHeader className="flex h-16 items-center px-3 py-5">
+          <SidebarHeader className="flex h-16 items-center  px-3 py-5">
             <Link
               href="/"
               className="flex items-center gap-2 font-bold text-xl"

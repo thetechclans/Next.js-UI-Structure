@@ -13,6 +13,7 @@ const config: Config = {
         primary: 'var(--primary-color)',
         Buttons: 'var(--primary-button)',
         hover_Color: 'var(--hover-color)',
+        secondary: 'var(--secondary-bgcolor)',
       },
       textColor: {
        textprimary: 'var(--text-primary-color)'

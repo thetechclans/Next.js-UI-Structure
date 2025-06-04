@@ -14,7 +14,13 @@ export default function RootLayout({children}: {
   const pathname = usePathname();
 
   // Check if the current route is the login page
-  const isLoginPage = pathname === "/" || pathname === "/register" || pathname === "/register/registerBenificiary" || pathname === "/register/registerMember" || pathname === "/register/registerMember/wizardOne" || pathname === "/register/paymentCard" ;
+  const isLoginPage = pathname === "/" || 
+  pathname === "/login" ||
+  pathname === "/register" || 
+  pathname === "/register/registerBenificiary" || 
+  pathname === "/register/registerMember" || 
+  pathname === "/register/registerMember/wizardOne" || 
+  pathname === "/register/paymentCard" ;
 
   return (
     <html lang="en">

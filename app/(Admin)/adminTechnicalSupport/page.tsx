@@ -6,104 +6,103 @@ import { DCMdl } from "@/models/dqms.model";
 import { apiService } from "@/services/api.service";
 import { API_PATHS } from "@/services/api-endpoints";
 import { Button } from "@/components/ui/button";
-import { CircleAlert, Loader2 } from "lucide-react";
+import { ChevronDown, Loader2 } from "lucide-react";
 import { DataTable } from "@/components/ui-components/data-table";
 import { format } from "date-fns";
 import BgSideCard from "@/components/ui/bgSideCard";
-import ConfirmPop from "@/components/ui/confirmPopUp";
 
-export default function MyServices(data: any): JSX.Element {
+export default function TechnicalSupport(data: any): JSX.Element {
   const [dataState, setData] = useState([
     // Initial empty data array
     // This will be populated with fetched data
     {
-            code: 1,
-            Details_Of_Complaints: "Rawoof ali",
-            Gender: "male",
-            Reference_Number: 123,
-            Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
-            The_Condition: "active",
-          },
-          {
-            code: 1,
-            Details_Of_Complaints: "Ahamed",
-            Gender: "Male",
-            Reference_Number: 123,
-            Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
-            The_Condition: "active",
-          },
-          {
-            code: 1,
-            Details_Of_Complaints: " abu thagir",
-            Gender: "Suggestion",
-            Reference_Number: 123,
-            Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
-            The_Condition: "Inactive",
-          },
-          {
-            code: 1,
-            Details_Of_Complaints: " Nilo",
-            Gender: "Female",
-            Reference_Number: 123,
-            Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
-            The_Condition: "active",
-          },
-          {
-            code: 1,
-            Details_Of_Complaints: " Majith",
-            Gender: "Male",
-            Reference_Number: 123,
-            Date_of_Construction: format(new Date("2024-08-15"), "MMM dd yyyy"),
-            The_Condition: "active",
-          },
-          {
-            code: 1,
-            Details_Of_Complaints: " Rawoof",
-            Gender: "male",
-            Reference_Number: 123,
-            Date_of_Construction: format(new Date("2024-05-15"), "MMM dd yyyy"),
-            The_Condition: "Inactive",
-          },
-          {
-            code: 1,
-            Details_Of_Complaints: "jass",
-            Gender: "Female",
-            Reference_Number: 123,
-            Date_of_Construction: format(new Date("2024-02-15"), "MMM dd yyyy"),
-            The_Condition: "active",
-          },
-          {
-            code: 1,
-            Details_Of_Complaints: "Dawood",
-            Gender: "Male",
-            Reference_Number: 123,
-            Date_of_Construction: format(new Date("2024-11-15"), "MMM dd yyyy"),
-            The_Condition: "active",
-          },
-          {
-            code: 1,
-            Details_Of_Complaints: "Balkis",
-            Gender: "Female",
-            Reference_Number: 123,
-            Date_of_Construction: format(new Date("2024-012-15"), "MMM dd yyyy"),
-            The_Condition: "active",
-          },
-          {
-            code: 1,
-            Details_Of_Complaints: " abu thagir",
-            Gender: "male",
-            Reference_Number: 123,
-            Date_of_Construction: format(new Date("2024-09-15"), "MMM dd yyyy"),
-            The_Condition: "Offline",
-          },
-          {
-            code: 1,
-            Details_Of_Complaints: " someName",
-            Gender: "Suggestion",
-            Reference_Number: 123,
-            Date_of_Construction: format(new Date("2024-06-15"), "MMM dd yyyy"),
-            The_Condition: "active",
-          },
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "male",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: "Ahamed",
+      Gender: "Male",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " Nilo",
+      Gender: "Female",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " Majith",
+      Gender: "Male",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-08-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " Rawoof",
+      Gender: "male",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-05-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: "jass",
+      Gender: "Female",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-02-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: "Dawood",
+      Gender: "Male",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-11-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: "Balkis",
+      Gender: "Female",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-012-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "male",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-09-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " someName",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-06-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
   ]);
       const [form, setForm] = useState<Partial<DCMdl>>({});
       const [loading, setLoading] = useState(false);
@@ -144,36 +143,6 @@ export default function MyServices(data: any): JSX.Element {
         // fetchData(search, page); // Fetch data with the new page number
       };
     
-    //   const handleSave = async () => {
-    //     try {
-    //       if (currentItem) {
-    //         await apiService.update<DCMdl>({
-    //           endpoint: API_PATHS.DC,
-    //           body: form,
-    //           queryParams: { id: currentItem.code },
-    //         });
-    //         showNotificationMessage("success", "Updated successfully");
-    //       } else {
-    //         await apiService.create<DCMdl>({
-    //           endpoint: API_PATHS.DC,
-    //           body: form,
-    //         });
-    //         showNotificationMessage("success", "Created successfully");
-    //       }
-    //       setIsDialogOpen(false);
-    //       // fetchData();
-    //     } catch (error) {
-    //       showNotificationMessage("error", "An error occurred while saving.");
-    //     }
-    //   };
-    
-    //   const handleChange = (key: keyof DCMdl, value: any) => {
-    //     setForm((prev: any) => ({
-    //       ...prev,
-    //       [key]: value,
-    //     }));
-    //   };
-    
       const handleDelete = async (id: number) => {
         // Implement your delete logic here
         await apiService.deleteItem<DCMdl>({
@@ -211,7 +180,7 @@ const columns = [
 ];
 
 return (
-    <BgSideCard className="w-full overflow-x-hidden items-center " search={true} button={true} title={"Services"}>
+    <BgSideCard className="w-full overflow-x-hidden items-center " search={true} button={true} title={"Technical Support"}>
       <div className="p-6 space-y-4">
 
         {loading && (
@@ -227,14 +196,15 @@ return (
               data={dataState}
               columns={columns}
               keyField="code"
-              searchbar={false}
-            //   onEdit={(item: DCMdl) => {
-            //     setCurrentItem(item);
-            //     setForm(item);
-            //     setIsDialogOpen(true);
-            //   }}
-            //   onDelete={handleDelete}
+              icon={<ChevronDown className="text-gray-200"/>}
+              onEdit={(item: DCMdl) => {
+                setCurrentItem(item);
+                setForm(item);
+                setIsDialogOpen(true);
+              }}
+              onDelete={handleDelete}
               onSearch={handleSearch}
+              searchbar={false}
               showdropdown={true}
               pagination={
                 pagination.showPagination
@@ -260,7 +230,6 @@ return (
           </div>
         )}
       </div>
-      
     </BgSideCard>
 );
 }

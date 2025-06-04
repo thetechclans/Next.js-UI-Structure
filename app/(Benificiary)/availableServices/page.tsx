@@ -63,18 +63,18 @@ export default function AvailablesService () {
       title={t('Available Service')}
       className="grid grid-cols-1"
     >
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6 mt-6">
 
-        {loading ? (
-          <Spinner />
-        ) : services.length === 0 ? (
+        {/* {loading ? (
+          // <Spinner />
+        ) : services.length === 0 ? ( */}
           <EmptyState
             imageSrc="/imgs/empty.png"
             message={t("No services found at the moment")}
             className="min-h-[50vh]"
             imageClass="w-1/2 md:w-1/3 lg:w-1/4"
           />
-        ) : (
+        {/* ) : ( */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-6">
             {services.map((service) => (
               <Card key={service.serviceid} className="p-4 my-4">
@@ -99,7 +99,7 @@ export default function AvailablesService () {
               </Card>
             ))}
           </div>
-        )}
+        {/* )} */}
 
         {/* Pagination */}
         <div className={`mt-4 w-full flex justify-end ${isRTL ? 'rtl' : 'ltr'}`}>

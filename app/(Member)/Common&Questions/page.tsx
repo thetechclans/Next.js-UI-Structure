@@ -15,17 +15,37 @@ export default function CommonQuestions() {
   return (
     <div>
       <BgSideCard title={"Common Questions"}>
-        <div>
+        <div className="ml-4">
           <Accordion type="multiple">
             <AccordionItem value="item-1" className="text-gray-400">
-              <AccordionTrigger transition={"default"} icon={<CircleChevronUp/>}>What is Huraymila Association</AccordionTrigger>
-              <AccordionContent>Huraymila association is association that was a 
-                reason and that is called for ans Huraymila Association</AccordionContent>
+              <AccordionTrigger transition={"default"} icon={<CircleChevronUp/>}>What is CMS Association</AccordionTrigger>
+              <AccordionContent>CMS Association is association that was a 
+                reason and that is called for ans CMS Association</AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
-              <AccordionTrigger transition={"default"} icon={<CircleChevronUp/>}>What is Huraymila Association</AccordionTrigger>
-              <AccordionContent>Huraymila association is association that was a 
-                reason and that is called for ans Huraymila Association</AccordionContent>
+              <AccordionTrigger transition={"default"} icon={<CircleChevronUp/>}>What is CMS Association</AccordionTrigger>
+              <AccordionContent>CMS Association is association that was a 
+                reason and that is called for ans CMS Association</AccordionContent>
+            </AccordionItem>
+             <AccordionItem value="item-1" className="text-gray-400">
+              <AccordionTrigger transition={"default"} icon={<CircleChevronUp/>}>What is CMS Association</AccordionTrigger>
+              <AccordionContent>CMS Association is association that was a 
+                reason and that is called for ans CMS Association</AccordionContent>
+            </AccordionItem>
+             <AccordionItem value="item-1" className="text-gray-400">
+              <AccordionTrigger transition={"default"} icon={<CircleChevronUp/>}>What is CMS Association</AccordionTrigger>
+              <AccordionContent>CMS Association is association that was a 
+                reason and that is called for ans CMS Association</AccordionContent>
+            </AccordionItem>
+             <AccordionItem value="item-1" className="text-gray-400">
+              <AccordionTrigger transition={"default"} icon={<CircleChevronUp/>}>What is CMS Association</AccordionTrigger>
+              <AccordionContent>CMS Association is association that was a 
+                reason and that is called for ans CMS Association</AccordionContent>
+            </AccordionItem>
+             <AccordionItem value="item-1" className="text-gray-400">
+              <AccordionTrigger transition={"default"} icon={<CircleChevronUp/>}>What is CMS Association</AccordionTrigger>
+              <AccordionContent>CMS Association is association that was a 
+                reason and that is called for ans CMS Association</AccordionContent>
             </AccordionItem>
           </Accordion>
         </div>
@@ -33,7 +53,7 @@ export default function CommonQuestions() {
                   throw new Error("Function not implemented.");
               } } />
       </BgSideCard>
-      <div className=" flex justify-center my-2 w-full items-center">
+      <div className=" flex justify-center my-6 w-full items-center">
         <Card className="flex w-full items-center justify-evenly">
           <div className="items-center mr-2">
             <Button size={"xl"} className="flex flex-col bg-transparent text-gray-400 shadow-none">

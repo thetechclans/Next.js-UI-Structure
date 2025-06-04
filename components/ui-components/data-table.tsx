@@ -26,6 +26,7 @@ interface DataTableProps<T> {
   icon?: ReactNode;
   columns: ColumnDef<T>[];
   keyField: keyof T;
+  searchbar?: boolean;
   onEdit?: (item: T) => void;
   onDelete?: (id: any) => void;
   className?: string;
@@ -60,6 +61,7 @@ export function DataTable<T extends any>({
   className,
   pagination,
   onSearch,
+  searchbar,
   initialSearchQuery,
   showdropdown,
 }: DataTableProps<T>) {
@@ -74,11 +76,13 @@ export function DataTable<T extends any>({
 
   return (
     <div className="space-y-4">
-      {onSearch && (
+      {searchbar ? (
+      onSearch && (
         <div className="mb-4">
           <SearchBox onSearch={handleSearch} />
         </div>
-      )}
+      )
+    ) : null}
       <div
         className={cn(
            "p-[1px] rounded-lg shadow-lg border border-gray-200 bg-white overflow-x-auto-hidden",
@@ -87,13 +91,13 @@ export function DataTable<T extends any>({
       >
         <Table className="relative overflow-x-hidden shadow-lg">
           <TableHeader className="bg-gray-200 border-gray-400">
-            <TableRow className="border-b border-gray-200 hover:bg-gray-50">
+            <TableRow className="border-b border-gray-200">
               {columns.map((column) => (
                 <TableHead
                   key={column.header.toString()}
-                  className="w-[100px] text-center items-center rounded-tl-xl text-xs font-medium border border-gray-300 text-gray-500 uppercase tracking-wider whitespace-nowrap"
+                  className="w-[100px] text-center text-nowrap items-center text-xs font-medium border border-gray-300 text-gray-500 uppercase tracking-wider whitespace-nowrap"
                 >
-                  {column.header}   <span className="ml-1">{icon}</span>
+                  {column.header} <span>{icon} </span>
                 </TableHead>
               ))}
               {(onEdit || onDelete) && (
