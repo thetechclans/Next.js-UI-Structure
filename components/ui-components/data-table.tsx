@@ -21,6 +21,16 @@ export interface ColumnDef<T> {
   className?: string;
 }
 
+export function createColumn<T>(
+  header: string,
+  accessor: keyof T | ((item: T) => React.ReactNode)
+) {
+  return {
+    header,
+    accessor,
+  };
+}
+
 interface DataTableProps<T> {
   data: T[];
   icon?: ReactNode;
@@ -77,35 +87,54 @@ export function DataTable<T extends any>({
   return (
     <div className="space-y-4">
       {searchbar ? (
-      onSearch && (
-        <div className="mb-4">
-          <SearchBox onSearch={handleSearch} />
-        </div>
-      )
-    ) : null}
+        onSearch && (
+          <div className="mb-4">
+            <SearchBox onSearch={handleSearch} />
+          </div>
+        )
+      ) : null}
       <div
         className={cn(
-           "p-[1px] rounded-lg shadow-lg border border-gray-200 bg-white overflow-x-auto-hidden",
+          "p-[1px] rounded-lg shadow-lg border border-gray-200 bg-white overflow-x-auto-hidden overflow-hidden", // Added overflow-hidden
           className
         )}
       >
-        <Table className="relative overflow-x-hidden shadow-lg">
-          <TableHeader className="bg-gray-200 border-gray-400">
-            <TableRow className="border-b border-gray-200">
-              {columns.map((column) => (
-                <TableHead
-                  key={column.header.toString()}
-                  className="w-[100px] text-center text-nowrap items-center text-xs font-medium border border-gray-300 text-gray-500 uppercase tracking-wider whitespace-nowrap"
-                >
-                  {column.header} <span>{icon} </span>
-                </TableHead>
-              ))}
-              {(onEdit || onDelete) && (
-                <TableHead className="w-[100px] text-center border border-gray-300 text-xs font-medium text-gray-500 uppercase">
-                  Actions
-                </TableHead>
-              )}
-            </TableRow>
+        <Table className="relative overflow-x-hidden shadow-lg rounded-lg"> {/* Added rounded-lg */}
+          <TableHeader className="bg-gray-200">
+            <TableRow>
+  {columns.map((column, idx) => (
+    <TableHead
+      key={column.header.toString()}
+      className={cn(
+        "text-center text-nowrap items-center text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap",
+        idx === 0 && "rounded-tl-lg", // Top left
+        idx === columns.length - 1 && !(onEdit || onDelete) && "rounded-tr-lg" // Top right if no actions
+      )}
+      style={
+        idx === 0
+          ? { borderTopLeftRadius: "0.5rem" }
+          : idx === columns.length - 1 && !(onEdit || onDelete)
+          ? { borderTopRightRadius: "0.5rem" }
+          : undefined
+      }
+    >
+      <div className="flex items-center justify-center">
+        {icon && <div className="mr-2 text-black">{icon}</div>}
+        {column.header}
+      </div>
+    </TableHead>
+  ))}
+  {(onEdit || onDelete) && (
+    <TableHead
+      className={cn(
+        "w-[100px] text-center text-xs font-medium text-gray-500 uppercase rounded-tr-lg"
+      )}
+      style={{ borderTopRightRadius: "0.5rem" }}
+    >
+      Actions
+    </TableHead>
+  )}
+</TableRow>
           </TableHeader>
           <TableBody className="bg-white divide-y divide-gray-200">
             {data.map((item, index) => (
@@ -131,27 +160,27 @@ export function DataTable<T extends any>({
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="bg-gray-200 h-9 rounded-lg text-gray-600">
-                      Procedure<ChevronDown className="relative -rotate-90" />
+                          Procedure<ChevronDown className="relative -rotate-90" />
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent className="space-y-1 w-[fit-content] bg-gray-200 border-none focus:border-none ">
-                      {showdropdown && (
-                        <>
-                          {onEdit && (
-                            <DropdownMenuItem onClick={() => onEdit(item)} className="hover:bg-gray-100">
-                              Edit
-                            </DropdownMenuItem>
-                          )}
-                          {onDelete && (
-                            <DropdownMenuItem
-                              onClick={() => onDelete(item[keyField])}
-                              className="text-red-600"
-                            >
-                              Delete
-                            </DropdownMenuItem>
-                          )}
-                        </>
-                      )}
+                        {showdropdown && (
+                          <>
+                            {onEdit && (
+                              <DropdownMenuItem onClick={() => onEdit(item)} className="hover:bg-gray-100">
+                                Edit
+                              </DropdownMenuItem>
+                            )}
+                            {onDelete && (
+                              <DropdownMenuItem
+                                onClick={() => onDelete(item[keyField])}
+                                className="text-red-600"
+                              >
+                                Delete
+                              </DropdownMenuItem>
+                            )}
+                          </>
+                        )}
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>
@@ -161,14 +190,14 @@ export function DataTable<T extends any>({
           </TableBody>
         </Table>
       </div>
-      
-{pagination && (
-  <PaginatedNav
-    currentPage={pagination.currentPage}
-    pageCount={pagination.pageCount}
-    onPageChange={pagination.onPageChange}
-  />
-)}
+
+      {pagination && (
+        <PaginatedNav
+          currentPage={pagination.currentPage}
+          pageCount={pagination.pageCount}
+          onPageChange={pagination.onPageChange}
+        />
+      )}
 
 
     </div>
