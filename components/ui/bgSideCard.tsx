@@ -40,40 +40,43 @@ const BgSideCard = ({
 
   return (
     <div className="items-start overflow-x-hidden">
-        <div className="flex justify-between overflow-x-hidden">
-      <div className="px-4">
-        <Label className="text-3xl text-gray-700 ">{title}</Label>
-      </div>
-      
-          <div className="flex justify-between items-center px-4">
-            {button ? (
-        <>
-            <Button
-              className="shadow-lg hover:shadow-xl transition-all duration-300"
-              onClick={() => {
-                setCurrentItem(null);
-                setIsDialogOpen(true);
-                setForm({});
-              }}
-              disabled={false}
-            >
-              {Bname || "+ Add Status"}
-            </Button>  </>
-      ) : null}
-          </div>
+      <div className="flex justify-between overflow-x-hidden">
+        <div className="px-4">
+          <Label className="text-3xl text-gray-700 ">{title}</Label>
+        </div>
+
+        <div className="flex justify-between items-center px-4">
+          {button ? (
+            <>
+              <Button
+                className="shadow-lg hover:shadow-xl transition-all duration-300"
+                onClick={() => {
+                  setCurrentItem(null);
+                  setIsDialogOpen(true);
+                  setForm({});
+                }}
+                disabled={false}
+              >
+                {Bname || "+ Add Status"}
+              </Button>{" "}
+            </>
+          ) : null}
+        </div>
       </div>
 
       <div className="mr-4 pr-4 pt-4 mt-4">
         {/* dir={data.isArabic ? "ltr" : "rtl"} */}
-          {/* <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-r-2 border-blue-200 opacity-50 -mt-6 mr-4 rounded-tl-xl" /> */}
+        {/* <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-r-2 border-blue-200 opacity-50 -mt-6 mr-4 rounded-tl-xl" /> */}
 
         <Card className="w-full h-full py-6 px-4 items-start inset-shadow-lg shadow-black rounded-none rounded-tr-[30px] bg-stone-100">
           {search ? (
             <>
               <div className="flex relative pr-4 w-full items-end justify-end">
-                <SearchBox onSearch={function (query: string): void {
-                  throw new Error("Function not implemented.");
-                } } />
+                <SearchBox
+                  onSearch={function (query: string): void {
+                    throw new Error("Function not implemented.");
+                  }}
+                />
               </div>
               <Separator />
             </>

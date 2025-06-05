@@ -2,7 +2,7 @@
 "use client";
 
 import BgSideCard from "@/components/ui/bgSideCard";
-import { BarChart } from "@/components/ui/Charts";
+import { BarChart, CustomChart } from "@/components/ui/Charts";
 
 export default function AdminHome() {
   const dataone = [
@@ -37,10 +37,10 @@ export default function AdminHome() {
   return (
     <BgSideCard>
     <div className="grid grid-col grid-cols-2 md:grid-cols-2 mt-4">
-    <BarChart data={dataone} xdatakey="name" ydatakey="sales" />
-    <BarChart data={datatwo} xdatakey="name" ydatakey="sales" />
-    <BarChart data={datathree} xdatakey="name" ydatakey="sales" />
-    <BarChart data={datafour} xdatakey="name" ydatakey="sales" />
+    <CustomChart data={dataone} xDataKey="name" yDataKey="sales" />
+    <CustomChart data={datatwo} xDataKey="name" yDataKey="sales" />
+    <CustomChart data={datathree} xDataKey="name" yDataKey="sales" />
+    <CustomChart data={datafour} xDataKey="name" yDataKey="sales" />
     </div>
     </BgSideCard>
   );
