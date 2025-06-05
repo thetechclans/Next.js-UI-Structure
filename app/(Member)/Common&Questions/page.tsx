@@ -18,32 +18,32 @@ export default function CommonQuestions() {
         <div className="ml-4">
           <Accordion type="multiple">
             <AccordionItem value="item-1" className="text-gray-400">
-              <AccordionTrigger transition={"default"} icon={<CircleChevronUp/>}>What is CMS Association</AccordionTrigger>
+              <AccordionTrigger transition={"default"} icon={<CircleChevronUp className="rotate-90 transition-transform duration-200"/>}>What is CMS Association</AccordionTrigger>
               <AccordionContent>CMS Association is association that was a 
                 reason and that is called for ans CMS Association</AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
-              <AccordionTrigger transition={"default"} icon={<CircleChevronUp/>}>What is CMS Association</AccordionTrigger>
+              <AccordionTrigger transition={"default"} icon={<CircleChevronUp className="rotate-90 transition-transform duration-200"/>}>What is CMS Association</AccordionTrigger>
               <AccordionContent>CMS Association is association that was a 
                 reason and that is called for ans CMS Association</AccordionContent>
             </AccordionItem>
-             <AccordionItem value="item-1" className="text-gray-400">
-              <AccordionTrigger transition={"default"} icon={<CircleChevronUp/>}>What is CMS Association</AccordionTrigger>
+             <AccordionItem value="item-3" className="text-gray-400">
+              <AccordionTrigger transition={"default"} icon={<CircleChevronUp className="rotate-90 transition-transform duration-200"/>}>What is CMS Association</AccordionTrigger>
               <AccordionContent>CMS Association is association that was a 
                 reason and that is called for ans CMS Association</AccordionContent>
             </AccordionItem>
-             <AccordionItem value="item-1" className="text-gray-400">
-              <AccordionTrigger transition={"default"} icon={<CircleChevronUp/>}>What is CMS Association</AccordionTrigger>
+             <AccordionItem value="item-4" className="text-gray-400">
+              <AccordionTrigger transition={"default"} icon={<CircleChevronUp className="rotate-90 transition-transform duration-200"/>}>What is CMS Association</AccordionTrigger>
               <AccordionContent>CMS Association is association that was a 
                 reason and that is called for ans CMS Association</AccordionContent>
             </AccordionItem>
-             <AccordionItem value="item-1" className="text-gray-400">
-              <AccordionTrigger transition={"default"} icon={<CircleChevronUp/>}>What is CMS Association</AccordionTrigger>
+             <AccordionItem value="item-5" className="text-gray-400">
+              <AccordionTrigger transition={"default"} icon={<CircleChevronUp className="rotate-90 transition-transform duration-200"/>}>What is CMS Association</AccordionTrigger>
               <AccordionContent>CMS Association is association that was a 
                 reason and that is called for ans CMS Association</AccordionContent>
             </AccordionItem>
-             <AccordionItem value="item-1" className="text-gray-400">
-              <AccordionTrigger transition={"default"} icon={<CircleChevronUp/>}>What is CMS Association</AccordionTrigger>
+             <AccordionItem value="item-6" className="text-gray-400">
+              <AccordionTrigger transition={"default"} icon={<CircleChevronUp className="rotate-90 transition-transform duration-200"/>}>What is CMS Association</AccordionTrigger>
               <AccordionContent>CMS Association is association that was a 
                 reason and that is called for ans CMS Association</AccordionContent>
             </AccordionItem>
@@ -53,17 +53,17 @@ export default function CommonQuestions() {
                   throw new Error("Function not implemented.");
               } } />
       </BgSideCard>
-      <div className=" flex justify-center my-6 w-full items-center">
-        <Card className="flex w-full items-center justify-evenly">
+      <div className=" flex justify-start my-6 pr-8 w-full items-center">
+        <Card className="flex w-full items-center rounded-none rounded-br-[30px] bg-stone-100 justify-evenly">
           <div className="items-center mr-2">
-            <Button size={"xl"} className="flex flex-col bg-transparent text-gray-400 shadow-none">
+            <Button size={"xl"} className="flex flex-col bg-transparent text-gray-600 shadow-none">
               <Headset className="text-gray-400 " />
               <span>Contact</span>
               <span>+938484394</span>
             </Button>
           </div>
           <div className="items-center ml-2">
-            <Button size={"xl"} className="flex flex-col bg-transparent text-gray-400 shadow-none">
+            <Button size={"xl"} className="flex flex-col bg-transparent text-gray-600 shadow-none">
               <MapPin className="text-gray-400" />
               <span>Location</span>
               <span>san Francisco</span>

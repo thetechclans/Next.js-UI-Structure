@@ -115,7 +115,7 @@ export default function MemberManagement(data: any): JSX.Element {
   const [itemToDelete, setItemToDelete] = useState<number | null>(null);
   const [pagination, setPagination] = useState({
     currentPage: 1,
-    pageCount: 10,
+    pageCount: 1,
     hasNext: false,
     hasPrevious: false,
     showPagination: true,
@@ -146,36 +146,6 @@ export default function MemberManagement(data: any): JSX.Element {
     setPagination((prev: any) => ({ ...prev, showPagination: false }));
     // fetchData(search, page); // Fetch data with the new page number
   };
-
-  //   const handleSave = async () => {
-  //     try {
-  //       if (currentItem) {
-  //         await apiService.update<DCMdl>({
-  //           endpoint: API_PATHS.DC,
-  //           body: form,
-  //           queryParams: { id: currentItem.code },
-  //         });
-  //         showNotificationMessage("success", "Updated successfully");
-  //       } else {
-  //         await apiService.create<DCMdl>({
-  //           endpoint: API_PATHS.DC,
-  //           body: form,
-  //         });
-  //         showNotificationMessage("success", "Created successfully");
-  //       }
-  //       setIsDialogOpen(false);
-  //       // fetchData();
-  //     } catch (error) {
-  //       showNotificationMessage("error", "An error occurred while saving.");
-  //     }
-  //   };
-
-  //   const handleChange = (key: keyof DCMdl, value: any) => {
-  //     setForm((prev: any) => ({
-  //       ...prev,
-  //       [key]: value,
-  //     }));
-  //   };
 
   const handleDelete = async (id: number) => {
     // Implement your delete logic here
@@ -217,13 +187,13 @@ export default function MemberManagement(data: any): JSX.Element {
   ];
 
   return (
-    <BgSideCard
+     <BgSideCard
       className="w-full overflow-x-hidden items-center "
       search={true}
       button={true}
       title={"Member Management"}
     >
-      <div className="p-6 space-y-4">
+      <div className="py-6 space-y-4">
         {loading && (
           <div className="flex justify-center items-center h-64">
             <Loader2 className="h-12 w-12 animate-spin text-primary" />
@@ -239,12 +209,12 @@ export default function MemberManagement(data: any): JSX.Element {
               keyField="code"
               searchbar={false}
               icon={<ChevronDown className="text-gray-200" />}
-                onEdit={(item: DCMdl) => {
-                  setCurrentItem(item);
-                  setForm(item);
-                  setIsDialogOpen(true);
-                }}
-                onDelete={handleDelete}
+              onEdit={(item: DCMdl) => {
+                setCurrentItem(item);
+                setForm(item);
+                setIsDialogOpen(true);
+              }}
+              onDelete={handleDelete}
               onSearch={handleSearch}
               showdropdown={true}
               pagination={

@@ -6,7 +6,7 @@ import { DCMdl } from "@/models/dqms.model";
 import { apiService } from "@/services/api.service";
 import { API_PATHS } from "@/services/api-endpoints";
 import { Button } from "@/components/ui/button";
-import { CircleAlert, Loader2 } from "lucide-react";
+import { ChevronDown, CircleAlert, Loader2 } from "lucide-react";
 import { DataTable } from "@/components/ui-components/data-table";
 import { format } from "date-fns";
 import BgSideCard from "@/components/ui/bgSideCard";
@@ -212,7 +212,7 @@ const columns = [
 
 return (
     <BgSideCard className="w-full overflow-x-hidden items-center " search={true} button={true} title={"Services"}>
-      <div className="p-6 space-y-4">
+      <div className="py-6 space-y-4">
 
         {loading && (
           <div className="flex justify-center items-center h-64">
@@ -228,6 +228,8 @@ return (
               columns={columns}
               keyField="code"
               searchbar={false}
+              icon={<ChevronDown className="text-gray-200" />}
+              
             //   onEdit={(item: DCMdl) => {
             //     setCurrentItem(item);
             //     setForm(item);

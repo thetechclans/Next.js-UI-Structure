@@ -194,7 +194,7 @@ export function SidebarLayout({ children, role }: SidebarProps) {
                     item.roles?.sidebarRoles?.includes(role) ? (
                       <SidebarMenuItem key={item.path}>
                         <SidebarMenuButton
-                        className="py-6 hover:bg-hover_Color "
+                        className="py-6 hover:bg-hover_Color"
                           asChild
                           isActive={pathname === item.path}
                           tooltip={item.title}

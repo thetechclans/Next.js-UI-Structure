@@ -115,7 +115,7 @@ export default function ProductManagement(data: any): JSX.Element {
   const [itemToDelete, setItemToDelete] = useState<number | null>(null);
   const [pagination, setPagination] = useState({
     currentPage: 1,
-    pageCount: 10,
+    pageCount: 1,
     hasNext: false,
     hasPrevious: false,
     showPagination: true,
@@ -188,11 +188,11 @@ export default function ProductManagement(data: any): JSX.Element {
   ];
 
   return (
-    <BgSideCard
+      <BgSideCard
       className="w-full overflow-x-hidden items-center "
       search={true}
       button={true}
-      title={"Store Management"}
+      title={"Product Management"}
     >
       <div className="p-6 space-y-4">
         {loading && (

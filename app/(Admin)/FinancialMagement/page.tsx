@@ -115,7 +115,7 @@ export default function FinancialManagement(data: any): JSX.Element {
   const [itemToDelete, setItemToDelete] = useState<number | null>(null);
   const [pagination, setPagination] = useState({
     currentPage: 1,
-    pageCount: 10,
+    pageCount: 1,
     hasNext: false,
     hasPrevious: false,
     showPagination: true,
@@ -189,13 +189,13 @@ export default function FinancialManagement(data: any): JSX.Element {
   ];
 
   return (
-    <BgSideCard
+      <BgSideCard
       className="w-full overflow-x-hidden items-center "
       search={true}
       button={true}
-      title={"Financial ManageMent"}
+      title={"Financial Management"}
     >
-      <div className="p-6 space-y-4">
+      <div className="py-6 space-y-4">
         {loading && (
           <div className="flex justify-center items-center h-64">
             <Loader2 className="h-12 w-12 animate-spin text-primary" />
@@ -208,15 +208,15 @@ export default function FinancialManagement(data: any): JSX.Element {
               className="border border-gray-300 w-full overflow-hidden"
               data={dataState}
               columns={columns}
-              searchbar={false}
               keyField="code"
+              searchbar={false}
               icon={<ChevronDown className="text-gray-200" />}
-                onEdit={(item: DCMdl) => {
-                  setCurrentItem(item);
-                  setForm(item);
-                  setIsDialogOpen(true);
-                }}
-                onDelete={handleDelete}
+              onEdit={(item: DCMdl) => {
+                setCurrentItem(item);
+                setForm(item);
+                setIsDialogOpen(true);
+              }}
+              onDelete={handleDelete}
               onSearch={handleSearch}
               showdropdown={true}
               pagination={

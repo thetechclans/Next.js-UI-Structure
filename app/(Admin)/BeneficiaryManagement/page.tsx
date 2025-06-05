@@ -115,7 +115,7 @@ export default function BeneficiaryManagement(data: any): JSX.Element {
   const [itemToDelete, setItemToDelete] = useState<number | null>(null);
   const [pagination, setPagination] = useState({
     currentPage: 1,
-    pageCount: 10,
+    pageCount: 1,
     hasNext: false,
     hasPrevious: false,
     showPagination: true,
@@ -193,7 +193,7 @@ export default function BeneficiaryManagement(data: any): JSX.Element {
       button={true}
       title={"Beneficiary Management"}
     >
-      <div className="p-6 space-y-4">
+      <div className="py-6 space-y-4">
         {loading && (
           <div className="flex justify-center items-center h-64">
             <Loader2 className="h-12 w-12 animate-spin text-primary" />

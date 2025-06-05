@@ -51,10 +51,10 @@ export default function ServiceManagement() {
           <Separator />
           <div className="text-start mr-7">
             this is a paragraph this is a paragraph this is a paragraph this is
-            a paragraph this is a paragraph vthis is a paragraph this is a
+            a paragraph this is a paragraph this is a paragraph this is a
             paragraph this is a paragraph this is a paragraph this is a
             paragraph this is a paragraph this is a paragraph this is a
-            paragraph this is a paragraph this is a paragraph{" "}
+            paragraph this is a paragraph this is a paragraph
           </div>
           <div className="relative flex justify-start items-end m-4 w-full">
             <div>

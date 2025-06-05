@@ -7,7 +7,7 @@ import { apiService } from "@/services/api.service";
 import { API_PATHS } from "@/services/api-endpoints";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, ChevronDown, Loader2, User } from "lucide-react";
-import { createColumn, DataTable } from "@/components/ui-components/data-table";
+import createColumn, { DataTable } from "@/components/ui-components/data-table";
 import { format } from "date-fns";
 import BgSideCard from "@/components/ui/bgSideCard";
 import PopModal from "@/components/ui-components/popModal";
@@ -117,7 +117,7 @@ export default function RequestMember(data: any): JSX.Element {
   const [itemToDelete, setItemToDelete] = useState<number | null>(null);
   const [pagination, setPagination] = useState({
     currentPage: 1,
-    pageCount: 10,
+    pageCount: 1,
     hasNext: false,
     hasPrevious: false,
     showPagination: true,
@@ -179,13 +179,13 @@ export default function RequestMember(data: any): JSX.Element {
   ];
 
   return (
-    <BgSideCard
+      <BgSideCard
       className="w-full overflow-x-hidden items-center "
       search={true}
       button={true}
-      title={"Member Requests"}
+      title={"Request Member"}
     >
-      <div className="p-6 space-y-4">
+      <div className="py-6 space-y-4">
         {loading && (
           <div className="flex justify-center items-center h-64">
             <Loader2 className="h-12 w-12 animate-spin text-primary" />
@@ -200,7 +200,7 @@ export default function RequestMember(data: any): JSX.Element {
               columns={columns}
               keyField="code"
               searchbar={false}
-              icon={<ChevronDown className="text-gray-500" />}
+              icon={<ChevronDown className="text-gray-200" />}
               onEdit={(item: DCMdl) => {
                 setCurrentItem(item);
                 setForm(item);
@@ -212,12 +212,12 @@ export default function RequestMember(data: any): JSX.Element {
               pagination={
                 pagination.showPagination
                   ? {
-                    currentPage: pagination.currentPage,
-                    pageCount: pagination.pageCount,
-                    // hasNext: pagination.hasNext,
-                    // hasPrevious: pagination.hasPrevious,
-                    onPageChange: handlePageChange,
-                  }
+                      currentPage: pagination.currentPage,
+                      pageCount: pagination.pageCount,
+                      // hasNext: pagination.hasNext,
+                      // hasPrevious: pagination.hasPrevious,
+                      onPageChange: handlePageChange,
+                    }
                   : undefined
               }
             />
@@ -232,6 +232,7 @@ export default function RequestMember(data: any): JSX.Element {
             <button onClick={() => setShowNotification(false)}>Close</button>
           </div>
         )}
+      </div>
 
         {/* <PopModal
           showProfileImage={false}
@@ -275,7 +276,6 @@ export default function RequestMember(data: any): JSX.Element {
         <ConfirmPop success>
           <Label className="text-lg">successfully uploaded</Label>
         </ConfirmPop> */}
-      </div>
     </BgSideCard>
   );
 }

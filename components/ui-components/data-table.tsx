@@ -12,7 +12,12 @@ import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { ReactNode, useState } from "react";
 import SearchBox from "./search";
 import { cn } from "@/lib/utils";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "../ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "../ui/dropdown-menu";
 import { PaginatedNav } from "./pagination";
 
 export interface ColumnDef<T> {
@@ -21,7 +26,7 @@ export interface ColumnDef<T> {
   className?: string;
 }
 
-export function createColumn<T>(
+export default function createColumn<T>(
   header: string,
   accessor: keyof T | ((item: T) => React.ReactNode)
 ) {
@@ -33,8 +38,8 @@ export function createColumn<T>(
 
 interface DataTableProps<T> {
   data: T[];
-  icon?: ReactNode;
   columns: ColumnDef<T>[];
+  icon?: ReactNode;
   keyField: keyof T;
   searchbar?: boolean;
   onEdit?: (item: T) => void;
@@ -63,8 +68,8 @@ function truncateText(
 
 export function DataTable<T extends any>({
   data,
-  icon,
   columns,
+  icon,
   keyField,
   onEdit,
   onDelete,
@@ -86,109 +91,114 @@ export function DataTable<T extends any>({
 
   return (
     <div className="space-y-4">
-      {searchbar ? (
-        onSearch && (
-          <div className="mb-4">
-            <SearchBox onSearch={handleSearch} />
-          </div>
-        )
-      ) : null}
+      {searchbar
+        ? onSearch && (
+            <div className="mb-4">
+              <SearchBox onSearch={handleSearch} />
+            </div>
+          )
+        : null}
       <div
         className={cn(
-          "p-[1px] rounded-lg shadow-lg border border-gray-200 bg-white overflow-x-auto-hidden overflow-hidden", // Added overflow-hidden
+          "w-full max-w-[95vw] border rounded-lg overflow-x-hidden mx-auto text-style",
           className
         )}
       >
-        <Table className="relative overflow-x-hidden shadow-lg rounded-lg"> {/* Added rounded-lg */}
-          <TableHeader className="bg-gray-200">
-            <TableRow>
-  {columns.map((column, idx) => (
-    <TableHead
-      key={column.header.toString()}
-      className={cn(
-        "text-center text-nowrap items-center text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap",
-        idx === 0 && "rounded-tl-lg", // Top left
-        idx === columns.length - 1 && !(onEdit || onDelete) && "rounded-tr-lg" // Top right if no actions
-      )}
-      style={
-        idx === 0
-          ? { borderTopLeftRadius: "0.5rem" }
-          : idx === columns.length - 1 && !(onEdit || onDelete)
-          ? { borderTopRightRadius: "0.5rem" }
-          : undefined
-      }
-    >
-      <div className="flex items-center justify-center">
-        {icon && <div className="mr-2 text-black">{icon}</div>}
-        {column.header}
-      </div>
-    </TableHead>
-  ))}
-  {(onEdit || onDelete) && (
-    <TableHead
-      className={cn(
-        "w-[100px] text-center text-xs font-medium text-gray-500 uppercase rounded-tr-lg"
-      )}
-      style={{ borderTopRightRadius: "0.5rem" }}
-    >
-      Actions
-    </TableHead>
-  )}
-</TableRow>
-          </TableHeader>
-          <TableBody className="bg-white divide-y divide-gray-200">
-            {data.map((item, index) => (
-              <TableRow
-                key={index}
-                className="transition-colors hover:bg-gray-50"
-              >
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.header.toString()}
+        <div className="overflow-x-hidden">
+          <Table className="w-full min-w-[600px]">
+            <TableHeader className="bg-gray-100">
+              <TableRow>
+                {columns.map((column, idx) => (
+                  <TableHead
+                    key={column.header}
                     className={cn(
-                      "px-6 py-4 max-w-[200px] h-[60px] border border-gray-50 whitespace-nowrap overflow-hidden text-ellipsis text-center text-sm text-gray-900 truncate",
-                      column.className
+                      "px-3 py-2 text-xs font-medium text-gray-600 border-r border-gray-200 uppercase whitespace-nowrap",
+                      idx === 0 && "rounded-tl-lg",
+                      idx === columns.length - 1 &&
+                        !(onEdit || onDelete) &&
+                        "rounded-tr-lg"
                     )}
                   >
-                    {typeof column.accessor === "function"
-                      ? truncateText(column.accessor(item), 50)
-                      : truncateText(String(item[column.accessor]), 50)}
-                  </TableCell>
+                    <div className="flex items-center justify-center text-xs space-x-1">
+                      {column.header}
+                      {icon && <span className="ml-1">{icon}</span>}
+                    </div>
+                  </TableHead>
                 ))}
                 {(onEdit || onDelete) && (
-                  <TableCell className="w-[fit-content] border border-gray-50 text-center text-sm font-medium">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="bg-gray-200 h-9 rounded-lg text-gray-600">
-                          Procedure<ChevronDown className="relative -rotate-90" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent className="space-y-1 w-[fit-content] bg-gray-200 border-none focus:border-none ">
-                        {showdropdown && (
-                          <>
-                            {onEdit && (
-                              <DropdownMenuItem onClick={() => onEdit(item)} className="hover:bg-gray-100">
-                                Edit
-                              </DropdownMenuItem>
-                            )}
-                            {onDelete && (
-                              <DropdownMenuItem
-                                onClick={() => onDelete(item[keyField])}
-                                className="text-red-600"
-                              >
-                                Delete
-                              </DropdownMenuItem>
-                            )}
-                          </>
-                        )}
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
+                  <TableHead className="px-3 py-2 w-[80px] text-xs font-medium text-center text-gray-600 uppercase whitespace-nowrap rounded-tr-lg">
+                    Actions
+                  </TableHead>
                 )}
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody className="bg-white divide-y divide-gray-200">
+              {data.map((item) => (
+                <TableRow
+                  key={String(item[keyField])}
+                  className="transition-colors hover:bg-gray-50"
+                >
+                  {columns.map((column) => (
+                    <TableCell
+                      key={`${item[keyField]}-${column.header}`}
+                      className={cn(
+                        "px-3 py-2 text-sm text-gray-700 text-center border border-t-none border-gray-50 whitespace-nowrap overflow-hidden text-ellipsis max-w-[180px]",
+                        column.className
+                      )}
+                      title={
+                        typeof column.accessor === "function"
+                          ? String(column.accessor(item))
+                          : String(item[column.accessor])
+                      }
+                    >
+                      {typeof column.accessor === "function"
+                        ? truncateText(String(column.accessor(item)), 30)
+                        : truncateText(String(item[column.accessor]), 30)}
+                    </TableCell>
+                  ))}
+                  {(onEdit || onDelete) && (
+                    <TableCell className="px-3 py-2 text-sm text-gray-700 text-center border border-t-none border-gray-50 whitespace-nowrap overflow-hidden text-ellipsis max-w-[180px]">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            // size="sm"
+                            className="h-7 px-2 text-gray-600 hover:bg-gray-200"
+                          >
+                            {/* <span className="sr-only"></span> */}
+                            Procedure
+                            <ChevronDown className="h-3.5 w-3.5" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent
+                          align="end"
+                          className="w-40 bg-white shadow-md"
+                        >
+                          {onEdit && (
+                            <DropdownMenuItem
+                              onClick={() => onEdit(item)}
+                              className="text-sm cursor-pointer hover:bg-gray-100"
+                            >
+                              Edit
+                            </DropdownMenuItem>
+                          )}
+                          {onDelete && (
+                            <DropdownMenuItem
+                              onClick={() => onDelete(item[keyField])}
+                              className="text-sm cursor-pointer text-red-600 hover:bg-red-50"
+                            >
+                              Delete
+                            </DropdownMenuItem>
+                          )}
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  )}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </div>
 
       {pagination && (
@@ -198,8 +208,6 @@ export function DataTable<T extends any>({
           onPageChange={pagination.onPageChange}
         />
       )}
-
-
     </div>
   );
 }

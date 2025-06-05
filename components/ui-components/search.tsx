@@ -40,9 +40,9 @@ const SearchBox: React.FC<SearchBoxProps> = ({ onSearch, isSidebarOpen = false }
           <div className="relative md:w-[395px] w-full h-[48px]">
             <input
               type="text"
-              className={`w-full shadow-lg py-2 border border-[#E2E6EF] pl-10 pr-2
+              className={`w-full shadow-md py-2 border border-[#E2E6EF] pl-10 pr-2
                rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-300`}
-              placeholder='searchhere'
+              placeholder='search here'
               value={query}
               onChange={handleChange}
               // style={{ textAlign: isRTL ? 'right' : 'left' }}

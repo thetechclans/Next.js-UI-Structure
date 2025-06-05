@@ -182,7 +182,7 @@ const columns = [
 
 return (
     <BgSideCard className="w-full overflow-x-hidden items-center " search={true} button={true} title={"Technical Support"}>
-      <div className="p-6 space-y-4">
+      <div className="py-6 space-y-4">
 
         {loading && (
           <div className="flex justify-center items-center h-64">

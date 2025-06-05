@@ -10,6 +10,8 @@ import { ChevronDown, Loader2 } from "lucide-react";
 import { DataTable } from "@/components/ui-components/data-table";
 import { format } from "date-fns";
 import BgSideCard from "@/components/ui/bgSideCard";
+import ConfirmPop from "@/components/ui/confirmPopUp";
+import { Separator } from "@/components/ui/separator";
 
 export default function TechnicalSupport(data: any): JSX.Element {
   const [dataState, setData] = useState([
@@ -112,7 +114,7 @@ export default function TechnicalSupport(data: any): JSX.Element {
       const [itemToDelete, setItemToDelete] = useState<number | null>(null);
       const [pagination, setPagination] = useState({
         currentPage: 1,
-        pageCount: 10,
+        pageCount: 1,
         hasNext: false,
         hasPrevious: false,
         showPagination: true,
@@ -180,9 +182,13 @@ const columns = [
 ];
 
 return (
-    <BgSideCard className="w-full overflow-x-hidden items-center " search={true} button={true} title={"Technical Support"}>
-      <div className="p-6 space-y-4">
-
+     <BgSideCard
+      className="w-full overflow-x-hidden items-center "
+      search={true}
+      button={true}
+      title={"Technical Support"}
+    >
+      <div className="py-6 space-y-4">
         {loading && (
           <div className="flex justify-center items-center h-64">
             <Loader2 className="h-12 w-12 animate-spin text-primary" />
@@ -196,7 +202,8 @@ return (
               data={dataState}
               columns={columns}
               keyField="code"
-              icon={<ChevronDown className="text-gray-200"/>}
+              searchbar={false}
+              icon={<ChevronDown className="text-gray-200" />}
               onEdit={(item: DCMdl) => {
                 setCurrentItem(item);
                 setForm(item);
@@ -204,7 +211,6 @@ return (
               }}
               onDelete={handleDelete}
               onSearch={handleSearch}
-              searchbar={false}
               showdropdown={true}
               pagination={
                 pagination.showPagination

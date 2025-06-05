@@ -55,7 +55,7 @@ export const BarChart: React.FC<chartsProps> = ({
   barDataKey,
 }: chartsProps) => {
   return (
-    <div style={{ width: "100%", height: "300px" }}>
+    <div style={{ width: "100%", height: "300px" }} className="w-full ">
       <ResponsiveContainer width="100%" height="100%">
         <RechartsBarChart data={data}>
           <XAxis dataKey={xdatakey} />

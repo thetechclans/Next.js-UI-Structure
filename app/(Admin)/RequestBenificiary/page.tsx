@@ -18,94 +18,94 @@ export default function RequestMember(data: any): JSX.Element {
   const [dataState, setData] = useState([
     // Initial empty data array
     // This will be populated with fetched data
-   {
-         code: 1,
-         Details_Of_Complaints: "Dhijas",
-         Gender: "male",
-         Reference_Number: 123,
-         Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
-         The_Condition: "active",
-       },
-       {
-         code: 1,
-         Details_Of_Complaints: "Ahamed",
-         Gender: "Male",
-         Reference_Number: 123,
-         Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
-         The_Condition: "active",
-       },
-       {
-         code: 1,
-         Details_Of_Complaints: " abu thagir",
-         Gender: "Suggestion",
-         Reference_Number: 123,
-         Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
-         The_Condition: "Inactive",
-       },
-       {
-         code: 1,
-         Details_Of_Complaints: " Nilo",
-         Gender: "Female",
-         Reference_Number: 123,
-         Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
-         The_Condition: "active",
-       },
-       {
-         code: 1,
-         Details_Of_Complaints: " Majith",
-         Gender: "Male",
-         Reference_Number: 123,
-         Date_of_Construction: format(new Date("2024-08-15"), "MMM dd yyyy"),
-         The_Condition: "active",
-       },
-       {
-         code: 1,
-         Details_Of_Complaints: " Rawoof",
-         Gender: "male",
-         Reference_Number: 123,
-         Date_of_Construction: format(new Date("2024-05-15"), "MMM dd yyyy"),
-         The_Condition: "Inactive",
-       },
-       {
-         code: 1,
-         Details_Of_Complaints: "jass",
-         Gender: "Female",
-         Reference_Number: 123,
-         Date_of_Construction: format(new Date("2024-02-15"), "MMM dd yyyy"),
-         The_Condition: "active",
-       },
-       {
-         code: 1,
-         Details_Of_Complaints: "Dawood",
-         Gender: "Male",
-         Reference_Number: 123,
-         Date_of_Construction: format(new Date("2024-11-15"), "MMM dd yyyy"),
-         The_Condition: "active",
-       },
-       {
-         code: 1,
-         Details_Of_Complaints: "Balkis",
-         Gender: "Female",
-         Reference_Number: 123,
-         Date_of_Construction: format(new Date("2024-012-15"), "MMM dd yyyy"),
-         The_Condition: "active",
-       },
-       {
-         code: 1,
-         Details_Of_Complaints: " abu thagir",
-         Gender: "male",
-         Reference_Number: 123,
-         Date_of_Construction: format(new Date("2024-09-15"), "MMM dd yyyy"),
-         The_Condition: "Offline",
-       },
-       {
-         code: 1,
-         Details_Of_Complaints: " someName",
-         Gender: "Suggestion",
-         Reference_Number: 123,
-         Date_of_Construction: format(new Date("2024-06-15"), "MMM dd yyyy"),
-         The_Condition: "active",
-       },
+    {
+      code: 1,
+      Details_Of_Complaints: "Dhijas",
+      Gender: "male",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: "Ahamed",
+      Gender: "Male",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "Inactive",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " Nilo",
+      Gender: "Female",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-07-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " Majith",
+      Gender: "Male",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-08-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " Rawoof",
+      Gender: "male",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-05-15"), "MMM dd yyyy"),
+      The_Condition: "Inactive",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: "jass",
+      Gender: "Female",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-02-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: "Dawood",
+      Gender: "Male",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-11-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: "Balkis",
+      Gender: "Female",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-012-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " abu thagir",
+      Gender: "male",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-09-15"), "MMM dd yyyy"),
+      The_Condition: "Offline",
+    },
+    {
+      code: 1,
+      Details_Of_Complaints: " someName",
+      Gender: "Suggestion",
+      Reference_Number: 123,
+      Date_of_Construction: format(new Date("2024-06-15"), "MMM dd yyyy"),
+      The_Condition: "active",
+    },
   ]);
   const [form, setForm] = useState<Partial<DCMdl>>({});
   const [loading, setLoading] = useState(false);
@@ -115,7 +115,7 @@ export default function RequestMember(data: any): JSX.Element {
   const [itemToDelete, setItemToDelete] = useState<number | null>(null);
   const [pagination, setPagination] = useState({
     currentPage: 1,
-    pageCount: 10,
+    pageCount: 1,
     hasNext: false,
     hasPrevious: false,
     showPagination: true,
@@ -146,8 +146,6 @@ export default function RequestMember(data: any): JSX.Element {
     setPagination((prev: any) => ({ ...prev, showPagination: false }));
     // fetchData(search, page); // Fetch data with the new page number
   };
-
-  
 
   const handleDelete = async (id: number) => {
     // Implement your delete logic here
@@ -195,7 +193,7 @@ export default function RequestMember(data: any): JSX.Element {
       button={true}
       title={"Requests Beneficiary"}
     >
-      <div className="p-6 space-y-4">
+      <div className="py-6 space-y-4">
         {loading && (
           <div className="flex justify-center items-center h-64">
             <Loader2 className="h-12 w-12 animate-spin text-primary" />
@@ -211,12 +209,12 @@ export default function RequestMember(data: any): JSX.Element {
               keyField="code"
               searchbar={false}
               icon={<ChevronDown className="text-gray-200" />}
-                onEdit={(item: DCMdl) => {
-                  setCurrentItem(item);
-                  setForm(item);
-                  setIsDialogOpen(true);
-                }}
-                onDelete={handleDelete}
+              onEdit={(item: DCMdl) => {
+                setCurrentItem(item);
+                setForm(item);
+                setIsDialogOpen(true);
+              }}
+              onDelete={handleDelete}
               onSearch={handleSearch}
               showdropdown={true}
               pagination={
@@ -244,33 +242,36 @@ export default function RequestMember(data: any): JSX.Element {
         )}
       </div>
 
-   <PopModal
-          showProfileImage={false}
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          title="Member Data"
-        >
-            <div className="flex items-center space-x-4">
-              <User className="h-10 w-10 rounded-full bg-gray-400 p-1 text-white" />
-              <div>
-                <Label className="text-lg text-gray-800">Ahamed</Label>
-                <br />
-                <Label className="text-sm text-gray-600">Ahamed23</Label>
-              </div>
+      <PopModal
+        showProfileImage={false}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Member Data"
+      >
+        <div className="flex items-center space-x-4">
+          <User className="h-10 w-10 rounded-full bg-gray-400 p-1 text-white" />
+          <div>
+            <Label className="text-lg text-gray-800">Ahamed</Label>
+            <br />
+            <Label className="text-sm text-gray-600">Ahamed23</Label>
           </div>
-          <Form>
-            <div className="grid grid-cols-2 gap-4 w-full my-4">
-              <FormField label="Phone Number" placeholder="Enter Your Phone Number" />
-              <FormField label="Email" placeholder="Enter Your Email" />
-            </div>
-          </Form>
-          <div className="flex justify-evenly m-4">
-            <Button className="bg-white shadow-lg text-black">Cancel</Button>
-            <Button className="hover:shadow-lg text-black">Submit</Button>
+        </div>
+        <Form>
+          <div className="grid grid-cols-2 gap-4 w-full my-4">
+            <FormField
+              label="Phone Number"
+              placeholder="Enter Your Phone Number"
+            />
+            <FormField label="Email" placeholder="Enter Your Email" />
           </div>
-        </PopModal>
+        </Form>
+        <div className="flex justify-evenly m-4">
+          <Button className="bg-white shadow-lg text-black">Cancel</Button>
+          <Button className="hover:shadow-lg text-black">Submit</Button>
+        </div>
+      </PopModal>
 
-        {/* <ConfirmPop success>
+      {/* <ConfirmPop success>
           <Label className="text-lg">successfully uploaded</Label>
         </ConfirmPop> */}
     </BgSideCard>
