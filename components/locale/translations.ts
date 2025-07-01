@@ -58,6 +58,7 @@ export type TranslationKey =
   // Menu
   | "menu"
   | "home"
+  | "catalog"
   | "user_management"
   | "referenceData"
   // User Management
@@ -162,6 +163,7 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     // Menu
     menu: "Menu",
     home: "Home",
+    catalog: "Catalog",
     user_management: "User Management",
     referenceData: "Reference Data",
     // User Management
@@ -265,6 +267,7 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     // Menu
     menu: "القائمة",
     home: "الرئيسية",
+    catalog: "الفهرس",
     user_management: "إدارة المستخدمين",
     referenceData: "بيانات مرجعية",
     // User Management

@@ -34,6 +34,16 @@ export function SidebarLayout({ children }: SidebarProps) {
       icon: Home,
       path: "/",
     },
+      {
+      title: t("home"),
+      icon: Home,
+      path: "/samplemange",
+    },
+       {
+      title: t("catalog"),
+      icon: Home,
+      path: "/FoodCatalog",
+    },
     {
       title: t("user_management"),
       icon: Users,

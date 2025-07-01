@@ -13,7 +13,7 @@ export function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b bg-background px-4 shadow-sm">
+    <header className="sticky top-0 z-30 w-full flex h-16 items-center justify-between border-b bg-background px-4 shadow-sm">
       <div className="flex items-center">
         <Link href="/" className="flex items-center gap-2 font-bold text-xl">
           <span>Admin Dashboard</span>
